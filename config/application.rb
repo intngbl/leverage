@@ -43,7 +43,7 @@ module Leverage
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
@@ -75,6 +75,10 @@ module Leverage
       g.javascripts = false
       g.helper = false
     end
+
+    # Devise suggests this for Rails 3.1+ on heroku:
+    # Forces your app to not access the DB or load models when precompiling your assets
+    config.assets.initialize_on_precompile = false
 
   end
 end
