@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'sqlite3'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -23,6 +22,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem "rspec-rails", ">= 2.12.2"
   gem "factory_girl_rails", ">= 4.2.0"
   gem 'haml-rails', '>= 0.3.4'
@@ -34,5 +34,9 @@ group :test do
   gem "cucumber-rails", ">= 1.3.0", :require => false
   gem "launchy", ">= 2.1.2"
   gem "capybara", ">= 2.0.2"
+end
+
+group :production do
+  gem 'pg'
 end
 
