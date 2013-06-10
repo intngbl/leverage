@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem "devise", ">= 2.2.3"
 gem "figaro", ">= 0.5.3"
 gem 'bootstrap-sass'
+gem 'simple_form'
 
 group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development
