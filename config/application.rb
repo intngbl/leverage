@@ -76,5 +76,9 @@ module Leverage
       g.helper = false
     end
 
+    # Devise suggests this for Rails 3.1+ on heroku:
+    # Forces your app to not access the DB or load models when precompiling your assets
+    config.assets.initialize_on_precompile = false
+
   end
 end
