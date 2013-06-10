@@ -17,6 +17,8 @@ group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development
   gem "better_errors", ">= 0.3.2", :group => :development
   gem "binding_of_caller", ">= 0.6.8", :group => :development
+  gem 'haml-rails', '>= 0.3.4'
+  gem 'html2haml'
 end
 
 group :development, :test do
