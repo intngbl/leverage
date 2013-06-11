@@ -22,9 +22,22 @@ def create_user
   @user = FactoryGirl.create(:user, @visitor)
 end
 
+def create_random_user
+  @user = FactoryGirl.create(:user)
+end
+
 def delete_user
   @user ||= User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
+end
+
+def edit_user(user)
+  visit '/users'
+  find("a[href='#role-options-#{user.id}']").click
+  find("#user_role_ids_2").choose
+  within("modal-footer") do
+    click_button("Change Role")
+  end
 end
 
 def sign_up
@@ -55,6 +68,12 @@ Given /^I am logged in$/ do
   sign_in
 end
 
+Given /^I am logged in as admin$/ do
+  create_user
+  @user.add_role(:admin)
+  sign_in
+end
+
 Given /^I exist as a user$/ do
   create_user
   sign_in
@@ -67,6 +86,14 @@ end
 
 Given /^I exist as an unconfirmed user$/ do
   create_unconfirmed_user
+end
+
+Given /^I am $/ do
+  create_unconfirmed_user
+end
+
+Given(/^Another user exist$/) do
+  create_random_user
 end
 
 ### WHEN ###
@@ -133,6 +160,10 @@ When /^I look at the list of users$/ do
   visit '/users'
 end
 
+When(/^I edit that user's role$/) do
+  edit_user @user
+end
+
 ### THEN ###
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
@@ -184,6 +215,10 @@ end
 
 Then /^I should see an account edited message$/ do
   page.should have_content "You updated your account successfully."
+end
+
+Then /^I should see an user updated message$/ do
+  page.should have_content "User updated."
 end
 
 Then /^I should see my name$/ do
