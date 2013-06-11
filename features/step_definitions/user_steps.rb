@@ -57,6 +57,7 @@ end
 
 Given /^I exist as a user$/ do
   create_user
+  sign_in
 end
 
 Given /^I do not exist as a user$/ do
@@ -129,7 +130,7 @@ When /^I edit my account details$/ do
 end
 
 When /^I look at the list of users$/ do
-  visit '/'
+  visit '/users'
 end
 
 ### THEN ###
