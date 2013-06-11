@@ -9,6 +9,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'haml-rails', '>= 0.3.4'
 gem "devise", ">= 2.2.3"
 gem "figaro", ">= 0.5.3"
 gem 'bootstrap-sass'
@@ -25,7 +26,6 @@ group :development, :test do
   gem 'sqlite3'
   gem "rspec-rails", ">= 2.12.2"
   gem "factory_girl_rails", ">= 4.2.0"
-  gem 'haml-rails', '>= 0.3.4'
 end
 
 group :test do
