@@ -12,4 +12,8 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def selectable_roles
+    Role.find(:all, :conditions => ["name != ?", :admin])
+  end
+
 end
