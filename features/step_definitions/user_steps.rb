@@ -222,6 +222,5 @@ Then /^I should see an user updated message$/ do
 end
 
 Then /^I should see my name$/ do
-  create_user
   page.should have_content @user[:name]
 end
