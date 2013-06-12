@@ -5,5 +5,9 @@ FactoryGirl.define do
     password 'changeme'
     password_confirmation 'changeme'
     confirmed_at Time.now
+
+    factory :unconfirmed_user do
+      confirmed_at nil
+    end
   end
 end

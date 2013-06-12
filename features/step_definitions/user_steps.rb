@@ -26,6 +26,12 @@ def create_random_user
   @user = FactoryGirl.create(:user)
 end
 
+def create_roles
+  YAML.load(ENV['ROLES']).each do |role|
+    Role.find_or_create_by_name({ :name => role }, :without_protection => true)
+  end
+end
+
 def delete_user
   @user ||= User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
@@ -43,7 +49,6 @@ end
 def sign_up
   delete_user
   visit '/users/sign_up'
-  fill_in "user_name", :with => @visitor[:name]
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
@@ -59,6 +64,11 @@ def sign_in
 end
 
 ### GIVEN ###
+
+Given /^Roles are defined$/ do
+  create_roles
+end
+
 Given /^I am not logged in$/ do
   visit '/users/sign_out'
 end
@@ -97,6 +107,7 @@ Given(/^Another user exist$/) do
 end
 
 ### WHEN ###
+
 When /^I sign in with valid credentials$/ do
   create_visitor
   sign_in
@@ -161,10 +172,28 @@ When /^I look at the list of users$/ do
 end
 
 When(/^I edit that user's role$/) do
-  edit_user @user
+  # edit_user @user
+  pending "Javascript not working, got check selenium"
+end
+
+When(/^I follow the confirmation link$/) do
+  visit "/users/confirmation?confirmation_token=#{@user.confirmation_token}"
+end
+
+When(/^Confirm my account$/) do
+  click_button I18n.t("devise.confirmations.show.confirm_account")
+end
+
+When(/^Select my role as (\w+)/) do |role_name|
+  role = Role.where(name: role_name).first
+  # Check if someone is cheating
+  if role.present? && role_name != 'admin'
+    select(role_name.titleize, from: "user_role_ids")
+  end
 end
 
 ### THEN ###
+
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
   page.should_not have_content "Sign up"
@@ -187,6 +216,10 @@ end
 
 Then /^I should see a successful sign up message$/ do
   page.should have_content "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."
+end
+
+Then /Î should see a successful account confirmation message$/ do
+  page.should have_content "Your account was successfully confirmed. You are now signed in."
 end
 
 Then /^I should see an invalid email message$/ do
@@ -222,6 +255,11 @@ Then /^I should see an user updated message$/ do
 end
 
 Then /^I should see my name$/ do
-  create_user
   page.should have_content @user[:name]
 end
+
+Then(/^My role should be (\w+)/) do |role_name|
+  role = Role.where(name: role_name).first
+  assert @user.roles.include?(role)
+end
+
