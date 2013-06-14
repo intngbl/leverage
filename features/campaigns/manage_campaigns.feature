@@ -42,6 +42,16 @@ Feature: Manage campaigns
     And I should see "Don't dream of winning. Train for it."
     And "SEMANA" should have 3 campaigns
 
+  Scenario: Agency edits campaign
+    Given I am logged in as "SEMANA"
+    And Thus able to edit a Campaign
+    When I go to the list of SEMANA campaigns
+    And I follow "Edit campaign" in row 1
+    And I fill in "Brief" with "You are now ready to board."
+    And I press "Update campaign"
+    Then I should see "Campaign updated."
+    And I should see "You are now ready to board."
+
   @javascript
   Scenario: Agency deletes campaign
     Given I am logged in as "SEMANA"

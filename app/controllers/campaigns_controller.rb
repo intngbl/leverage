@@ -3,7 +3,7 @@ class CampaignsController < ApplicationController
 
   load_resource :user, :only => [:index, :show]
   load_resource :through => :user, :only => [:index, :show]
-  load_and_authorize_resource :through => :current_user, :only => [:new, :create, :destroy]
+  load_and_authorize_resource :through => :current_user, :only => [:new, :create, :edit, :update, :destroy]
 
   def create
     if @campaign.save
@@ -20,6 +20,14 @@ class CampaignsController < ApplicationController
       flash[:error] = "Campaign not deleted."
     end
     redirect_to :action => 'index'
+  end
+
+  def update
+    if @campaign.update_attributes(params[:campaign])
+      redirect_to user_campaign_path(current_user.id, @campaign.id), :notice => "Campaign updated."
+    else
+      render :action => 'edit', :status => 403
+    end
   end
 
 end
