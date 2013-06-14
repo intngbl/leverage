@@ -40,8 +40,8 @@ end
 def edit_user(user)
   visit '/users'
   find("a[href='#role-options-#{user.id}']").click
-  find("#user_role_ids_2").choose
-  within("modal-footer") do
+  choose("user_role_ids_2")
+  within(".modal-footer") do
     click_button("Change Role")
   end
 end
@@ -172,8 +172,7 @@ When /^I look at the list of users$/ do
 end
 
 When(/^I edit that user's role$/) do
-  # edit_user @user
-  pending "Javascript not working, got check selenium"
+  edit_user @user
 end
 
 When(/^I follow the confirmation link$/) do
