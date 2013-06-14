@@ -1,0 +1,13 @@
+%h3= t('.header')
+
+= simple_form_for [current_user, @campaign], :html => { :method => :put } do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :title, :required => true
+    = f.input :brief, :required => true
+    = f.input :price, hint: "price should be in USD"
+  .form-actions
+    = f.button :submit, t('.update')
+
+= link_to "Back", :back
+

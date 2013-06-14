@@ -10,5 +10,7 @@ Leverage::Application.routes.draw do
     put "/confirm" => "confirmations#confirm"
   end
 
-  resources :users
+  resources :users do
+    resources :campaigns
+  end
 end

@@ -100,4 +100,39 @@ describe User do
 
   end
 
+
+  describe "campaigns association" do
+
+    before do
+      @user = FactoryGirl.build(:user)
+      @user.save
+    end
+
+    subject { @user }
+    it { should respond_to(:campaigns) }
+
+    let!(:older_campaign) do
+      FactoryGirl.create(:campaign, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_campaign) do
+      FactoryGirl.create(:campaign, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right campaigns in the right order" do
+      @user.campaigns.should == [newer_campaign, older_campaign]
+    end
+
+    it "should destroy associated campaigns" do
+      campaigns = @user.campaigns.dup
+      @user.destroy
+      campaigns.should_not be_empty
+      campaigns.each do |campaign|
+        lambda do
+          Campaign.find(campaign.id)
+        end.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+  end
+
 end

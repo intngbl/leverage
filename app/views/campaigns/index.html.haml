@@ -1,0 +1,23 @@
+- provide(:title, "#{@user.name} campaigns")
+
+%h3 Campaigns
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Title
+      %th Brief
+      %th Price
+      %th Created on
+      %th
+      %th
+  %tbody
+    - @campaigns.each do |campaign|
+      %tr
+        %td= link_to campaign.title, user_campaign_path(@user.id, campaign.id)
+        %td= campaign.brief
+        %td= campaign.price
+        %td= campaign.created_at.to_date
+        %td= link_to("Edit campaign", edit_user_campaign_path(@user.id, campaign.id), :class => 'btn btn-mini') if campaign.user == current_user
+        %td= link_to("Delete campaign", user_campaign_path(@user.id, campaign.id), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') if campaign.user == current_user
+
+

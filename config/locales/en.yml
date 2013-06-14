@@ -1,4 +1,11 @@
 en:
+  campaigns:
+    new:
+      create: 'Create campaign'
+      header: 'New campaign'
+    edit:
+      header: 'Edit campaign'
+      update: 'Update campaign'
   cancan:
     failure:
       unauthorized: 'Not authorized to access this resource.'
