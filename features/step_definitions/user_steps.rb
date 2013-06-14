@@ -205,52 +205,8 @@ Then /^I should be signed out$/ do
   page.should_not have_content "Logout"
 end
 
-Then /^I see an unconfirmed account message$/ do
-  page.should have_content "You have to confirm your account before continuing."
-end
-
-Then /^I see a successful sign in message$/ do
-  page.should have_content "Signed in successfully."
-end
-
-Then /^I should see a successful sign up message$/ do
-  page.should have_content "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."
-end
-
-Then /Î should see a successful account confirmation message$/ do
-  page.should have_content "Your account was successfully confirmed. You are now signed in."
-end
-
-Then /^I should see an invalid email message$/ do
-  page.should have_content "Emailis invalid"
-end
-
-Then /^I should see a missing password message$/ do
-  page.should have_content "Passwordcan't be blank"
-end
-
-Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "Passworddoesn't match confirmation"
-end
-
-Then /^I should see a mismatched password message$/ do
-  page.should have_content "Passworddoesn't match confirmation"
-end
-
-Then /^I should see a signed out message$/ do
-  page.should have_content "Signed out successfully."
-end
-
-Then /^I see an invalid login message$/ do
-  page.should have_content "Invalid email or password."
-end
-
-Then /^I should see an account edited message$/ do
-  page.should have_content "You updated your account successfully."
-end
-
-Then /^I should see an user updated message$/ do
-  page.should have_content "User updated."
+Then(/^I should see "(.*?)"$/) do |message|
+  page.should have_content(message)
 end
 
 Then /^I should see my name$/ do

@@ -68,10 +68,6 @@ Then(/^I should see (\d+) campaigns$/) do |count|
   all("tbody > tr").count.should == count.to_i
 end
 
-Then(/^I should see "(.*?)"$/) do |message|
-  page.should have_content(message)
-end
-
 Then(/^"(.*?)" should have (\d+) campaigns$/) do |name, count|
   user = User.where(name: name).first
   user.campaigns.count == count.to_i

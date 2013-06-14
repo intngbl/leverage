@@ -10,5 +10,5 @@ Feature: Edit other users roles
     Given I am logged in as admin
     And Another random user exist
     When I edit that user's role
-    Then I should see an user updated message
+    Then I should see "User updated."
 

@@ -10,12 +10,12 @@ Feature: Account confirmation
     Scenario: User confirms account without changing any value
       When I follow the confirmation link
       And Confirm my account
-      Then Î should see a successful account confirmation message
+      Then I should see "Your account was successfully confirmed."
 
     Scenario: User confirms account and chooses a role
       When I follow the confirmation link
       And Select my role as agency
       And Confirm my account
-      Then Î should see a successful account confirmation message
+      Then I should see "Your account was successfully confirmed."
       And My role should be agency
 
