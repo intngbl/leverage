@@ -7,6 +7,10 @@ Feature: Account confirmation
       Given I exist as an unconfirmed user
       And Roles are defined
 
+    Scenario: Unconfirmed user signs in
+      When I sign in with valid credentials
+      Then I should see "You have to confirm your account before continuing."
+
     Scenario: User confirms account without changing any value
       When I follow the confirmation link
       And Confirm my account
