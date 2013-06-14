@@ -42,3 +42,12 @@ Feature: Manage campaigns
     And I should see "Don't dream of winning. Train for it."
     And "SEMANA" should have 3 campaigns
 
+  @javascript
+  Scenario: Agency deletes campaign
+    Given I am logged in as "SEMANA"
+    And Thus able to delete a Campaign
+    When I go to the list of SEMANA campaigns
+    And "SEMANA" should have 3 campaigns
+    And I follow delete link in row 1
+    Then "SEMANA" should have 2 campaigns
+    And I should see "Campaign deleted."

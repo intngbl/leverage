@@ -51,6 +51,11 @@ When(/^I follow link in row (\d+)$/) do |row_number|
   find("tbody tr:nth-child(#{row_number}) > td:nth-child(#{row_number}) > a").click
 end
 
+When(/^I follow delete link in row (\d+)$/) do |row_number|
+  find("tbody tr:nth-child(#{row_number}) > td:nth-child(5) > a").click
+  page.driver.browser.switch_to.alert.accept
+end
+
 When(/^I try to create a campaign for "(.*?)"$/) do |name|
   some_user = User.where(name: name).first
   crafted_parameters = { title: "Hacked", brief: "FOR THE LULZ" }
