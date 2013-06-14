@@ -56,10 +56,10 @@ def sign_up
   find_user
 end
 
-def sign_in
+def sign_in(user = @visitor)
   visit '/users/sign_in'
-  fill_in "user_email", :with => @visitor[:email]
-  fill_in "user_password", :with => @visitor[:password]
+  fill_in "user_email", :with => user[:email]
+  fill_in "user_password", :with => user[:password]
   click_button "Sign in"
 end
 
@@ -102,7 +102,7 @@ Given /^I am $/ do
   create_unconfirmed_user
 end
 
-Given(/^Another user exist$/) do
+Given(/^Another random user exist$/) do
   create_random_user
 end
 

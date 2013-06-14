@@ -1,6 +1,11 @@
 = link_to "Leverage", root_path, :class => 'brand'
 %ul.nav
   - if user_signed_in?
+    - if current_user.has_role?(:agency)
+      %li
+        = link_to 'Campaigns', user_campaigns_path(current_user.id)
+      %li
+        = link_to 'New campaign', new_user_campaign_path(current_user.id)
     %li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
     %li
