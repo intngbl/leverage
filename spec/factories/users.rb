@@ -9,5 +9,9 @@ FactoryGirl.define do
     factory :unconfirmed_user do
       confirmed_at nil
     end
+
+    factory :agency do
+      after(:create) { |user| user.add_role(:agency) }
+    end
   end
 end
