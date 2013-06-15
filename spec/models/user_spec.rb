@@ -100,15 +100,10 @@ describe User do
 
   end
 
+  before { @user = FactoryGirl.create(:user) }
+  subject { @user }
 
   describe "campaigns association" do
-
-    before do
-      @user = FactoryGirl.build(:user)
-      @user.save
-    end
-
-    subject { @user }
     it { should respond_to(:campaigns) }
 
     let!(:older_campaign) do
@@ -130,6 +125,32 @@ describe User do
         lambda do
           Campaign.find(campaign.id)
         end.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
+  describe "joining campaigns" do
+    it { should respond_to(:enrollments) }
+    it { should respond_to(:joined_campaigns) }
+    it { should respond_to(:joined?) }
+    it { should respond_to(:join!) }
+    it { should respond_to(:leave!) }
+
+    let(:campaign) do
+      FactoryGirl.create(:campaign, user: @user, created_at: 1.day.ago)
+    end
+    let(:other_user) { FactoryGirl.create(:user) }
+
+    describe "join" do
+      subject { other_user }
+      before { other_user.join!(campaign) }
+      it { should be_joined(campaign) }
+      its(:joined_campaigns) { should include(campaign) }
+
+      describe "leave" do
+        before { other_user.leave!(campaign) }
+        it { should_not be_joined(campaign) }
+        its(:joined_campaigns) { should_not include(campaign) }
       end
     end
 
