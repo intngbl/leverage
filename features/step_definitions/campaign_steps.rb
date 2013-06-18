@@ -16,7 +16,7 @@ end
 Given(/^Thus able to (\w+) a Campaign/) do |action|
   current_user_attributes = @user_attributes[@current_user_name.to_sym]
   u = User.where(name: current_user_attributes[:name]).first
-  Ability.new(u).can?(action.to_sym, Campaign.new).should == true
+  Ability.new(u).can?(action.to_sym, Campaign.new).should be_true
 end
 
 Given(/^I should be enrolled in campaign "(.*?)"$/) do |campaign_title|
@@ -81,11 +81,11 @@ end
 # Then
 
 Then(/^I should see (\d+) campaigns$/) do |count|
-  all("tbody > tr").count.should == count.to_i
+  all("tbody > tr").count.should eq(count.to_i)
 end
 
 Then(/^"(.*?)" should have (\d+) campaigns$/) do |name, count|
   user = User.where(name: name).first
-  user.campaigns.count == count.to_i
+  user.campaigns.count.should eq(count.to_i)
 end
 
