@@ -5,6 +5,17 @@ class CampaignsController < ApplicationController
   load_resource through: :user
   authorize_resource except: [:index, :show]
 
+  def show
+    return true if current_user.nil?
+    if current_user.joined?(@campaign)
+      @enrollment = current_user.enrollments.find_by_campaign_id(@campaign.id)
+      @enrollment_url = user_campaign_enrollment_path(@user.id, @campaign.id)
+    else
+      @enrollment = current_user.enrollments.build(campaign_id: @campaign.id)
+      @enrollment_url = user_campaign_enrollments_path(@user.id, @campaign.id)
+    end
+  end
+
   def create
     if @campaign.save
       redirect_to user_campaign_path(current_user.id, @campaign.id), :notice => "Campaign created."

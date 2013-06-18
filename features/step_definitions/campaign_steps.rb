@@ -13,19 +13,20 @@ Given(/^Agency (\w+) has (\d+) campaigns$/) do |name, count|
   count.to_i.times { FactoryGirl.create(:campaign, user: agency) }
 end
 
-Given(/^I am not authenticated/) do
-  visit '/users/sign_out'
-end
-
-Given(/^I am logged in as "(.*?)"$/) do |name|
-  @current_user_name = name
-  sign_in(@user_attributes[name.to_sym])
-end
-
 Given(/^Thus able to (\w+) a Campaign/) do |action|
   current_user_attributes = @user_attributes[@current_user_name.to_sym]
   u = User.where(name: current_user_attributes[:name]).first
   Ability.new(u).can?(action.to_sym, Campaign.new).should == true
+end
+
+Given(/^I should be enrolled in campaign "(.*?)"$/) do |campaign_title|
+  campaign = Campaign.where(title: campaign_title).first
+  assert @user.joined?(campaign), "#{@user.name} should be enrolled in #{campaign.title}"
+end
+
+Given(/^I am enrolled in campaign "(.*?)"$/) do |campaign_title|
+  campaign = Campaign.where(title: campaign_title).first
+  @user.enrollments.create(campaign_id: campaign.id)
 end
 
 ### When
@@ -64,6 +65,11 @@ When(/^I try to create a campaign for "(.*?)"$/) do |name|
   some_user = User.where(name: name).first
   crafted_parameters = { title: "Hacked", brief: "FOR THE LULZ" }
   post "/users/#{some_user.id}/campaigns", crafted_parameters
+end
+
+When(/^I go to campaign "(.*?)"$/) do |title|
+  campaign = Campaign.where(title: title).first
+  visit user_campaign_path(campaign.user_id, campaign.id)
 end
 
 # Then

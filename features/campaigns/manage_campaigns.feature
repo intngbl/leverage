@@ -9,18 +9,18 @@ Feature: Manage campaigns
     And Agency SEMANA has 2 campaigns
 
   Scenario: Campaigns list
-    Given I am not authenticated
+    Given I am not logged in
     When I go to the list of SEMANA campaigns
     Then I should see 2 campaigns
 
   Scenario: Campaign show
-    Given I am not authenticated
+    Given I am not logged in
     When I go to the list of SEMANA campaigns
     And I follow link in row 1
     Then I should see "Experience Virgin America"
 
   Scenario: Try to create campaign as a guest
-    Given I am not authenticated
+    Given I am not logged in
     When I try to create a campaign for "SEMANA"
     Then "SEMANA" should have 2 campaigns
 
