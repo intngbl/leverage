@@ -91,6 +91,13 @@ Given(/^I am logged in as "(.*?)"$/) do |name|
   find_user(attributes[:email])
 end
 
+Given(/^(\w+) (\w+) exist$/) do |role, name|
+  @user_attributes ||= {}
+  @user_attributes[name.to_sym] = FactoryGirl.attributes_for(:user, name: name)
+  user = FactoryGirl.create(:user, @user_attributes[name.to_sym])
+  user.add_role(role.downcase.to_sym)
+end
+
 Given /^I exist as a user$/ do
   create_user
   sign_in

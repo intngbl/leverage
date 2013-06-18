@@ -1,19 +1,12 @@
 
 ### Given
 
-Given(/^(\w+) (\w+) exist$/) do |role, name|
-  @user_attributes ||= {}
-  @user_attributes[name.to_sym] = FactoryGirl.attributes_for(:user, name: name)
-  user = FactoryGirl.create(:user, @user_attributes[name.to_sym])
-  user.add_role(role.downcase.to_sym)
-end
-
 Given(/^Agency (\w+) has (\d+) campaigns$/) do |name, count|
   agency = User.where(name: name).first
   count.to_i.times { FactoryGirl.create(:campaign, user: agency) }
 end
 
-Given(/^Thus able to (\w+) a Campaign/) do |action|
+Given(/^Thus able to (\w+) a campaign/) do |action|
   current_user_attributes = @user_attributes[@current_user_name.to_sym]
   u = User.where(name: current_user_attributes[:name]).first
   Ability.new(u).can?(action.to_sym, Campaign.new).should be_true
@@ -89,3 +82,7 @@ Then(/^"(.*?)" should have (\d+) campaigns$/) do |name, count|
   user.campaigns.count.should eq(count.to_i)
 end
 
+Then(/^"(.*?)" should have (\d+) users$/) do |title, count|
+  campaign = Campaign.where(title: title).first
+  campaign.joined_users.count.should eq(count.to_i)
+end
