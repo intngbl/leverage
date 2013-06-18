@@ -7,6 +7,7 @@ Feature: Manage campaigns
     Given Roles are defined
     And Agency SEMANA exist
     And Agency SEMANA has 2 campaigns
+    And Tweeter rodowi exist
 
   Scenario: Campaigns list
     Given I am not logged in
@@ -25,8 +26,7 @@ Feature: Manage campaigns
     Then "SEMANA" should have 2 campaigns
 
   Scenario: Try to create campaign as tweeter
-    Given Tweeter rodowi exist
-    And I am logged in as "rodowi"
+    Given I am logged in as "rodowi"
     When I try to create a campaign for "rodowi"
     Then "rodowi" should have 0 campaigns
 
@@ -61,3 +61,20 @@ Feature: Manage campaigns
     And I follow delete link in row 1
     Then "SEMANA" should have 2 campaigns
     And I should see "Campaign deleted."
+
+  Scenario: Agency can see joined users of a campaign
+    Given I am logged in as "SEMANA"
+    And User "rodowi" is enrolled in campaign "Experience Virgin America"
+    When I go to campaign "Experience Virgin America"
+    And I follow "1 user have joined"
+    Then I should see "rodowi"
+    And I should see button "Unsubscribe"
+
+  Scenario: Agency can unsubscribe users from a campaign
+    Given I am logged in as "SEMANA"
+    And User "rodowi" is enrolled in campaign "Experience Virgin America"
+    When I go to campaign "Experience Virgin America"
+    And I follow "1 user have joined"
+    And I press "Unsubscribe"
+    Then I should see "Unsubscribed successfully."
+

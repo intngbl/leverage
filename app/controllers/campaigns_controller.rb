@@ -6,14 +6,7 @@ class CampaignsController < ApplicationController
   authorize_resource except: [:index, :show]
 
   def show
-    return true if current_user.nil?
-    if current_user.joined?(@campaign)
-      @enrollment = current_user.enrollments.find_by_campaign_id(@campaign.id)
-      @enrollment_url = user_campaign_enrollment_path(@user.id, @campaign.id)
-    else
-      @enrollment = current_user.enrollments.build(campaign_id: @campaign.id)
-      @enrollment_url = user_campaign_enrollments_path(@user.id, @campaign.id)
-    end
+    @joined_users_count = @campaign.joined_users.count
   end
 
   def create
@@ -39,6 +32,10 @@ class CampaignsController < ApplicationController
     else
       render :action => 'edit', :status => 403
     end
+  end
+
+  def joined_users
+    @joined_users = @campaign.joined_users
   end
 
 end

@@ -29,6 +29,12 @@ Given(/^I am enrolled in campaign "(.*?)"$/) do |campaign_title|
   @user.enrollments.create(campaign_id: campaign.id)
 end
 
+Given(/^User "(.*?)" is enrolled in campaign "(.*?)"$/) do |user_name, campaign_title|
+  user = User.where(name: user_name).first
+  campaign = Campaign.where(title: campaign_title).first
+  user.enrollments.create(campaign_id: campaign.id)
+end
+
 ### When
 
 When(/^I go to the list of (\w+) campaigns$/) do |name|

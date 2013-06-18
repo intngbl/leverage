@@ -1,0 +1,20 @@
+%h3 Users who joined the campaign
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Username
+      %th Email
+      %th
+  %tbody
+  - @joined_users.each do |joined_user|
+    %tr
+      %td= link_to joined_user.name, joined_user
+      %td= joined_user.email
+      %td
+      %td
+        - if can? :destroy, Enrollment
+          - enrollment = joined_user.enrollments.find_by_campaign_id(@campaign.id)
+          = simple_form_for enrollment, :url => user_campaign_enrollment_path(@user.id, @campaign.id), :method => :delete do |f|
+            = f.input :id, :as => :hidden, :input_html => { :value => enrollment.id }
+            = f.submit "Unsubscribe", class: "btn"
+

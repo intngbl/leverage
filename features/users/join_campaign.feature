@@ -26,7 +26,7 @@ Feature: Campaign enrollment
     And I am enrolled in campaign "Experience Virgin America"
     When I go to campaign "Experience Virgin America"
     And I press "Leave"
-    Then I should see "You just left the campaign."
+    Then I should see "Unsubscribed successfully."
 
   Scenario: Agencies can't join campaign
     Given I am logged in as "SEMANA"
