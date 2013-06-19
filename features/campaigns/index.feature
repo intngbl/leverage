@@ -13,3 +13,8 @@ Feature: Watch a list of campaigns published by agency
     When I go to the list of SEMANA campaigns
     Then I should see 2 campaigns
 
+  Scenario: Getting to list of campaigns of a tweeter should redirect to user page
+    Given I am logged in as "rodowi"
+    When I go to the list of rodowi campaigns
+    Then I should see "rodowi"
+

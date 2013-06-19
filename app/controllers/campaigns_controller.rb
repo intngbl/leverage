@@ -5,6 +5,10 @@ class CampaignsController < ApplicationController
   load_resource through: :user
   authorize_resource except: [:index, :show]
 
+  def index
+    redirect_to user_path(@user) unless @user.has_role? :agency
+  end
+
   def show
     @joined_users_count = @campaign.joined_users.count
   end
