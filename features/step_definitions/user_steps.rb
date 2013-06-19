@@ -201,6 +201,11 @@ When(/^Select my role as (\w+)/) do |role_name|
   end
 end
 
+When(/^I visit "(\w+)" profile$/) do |name|
+  u = User.where(name: name).first
+  visit user_path(u)
+end
+
 ### THEN ###
 
 Then /^I should be signed in$/ do

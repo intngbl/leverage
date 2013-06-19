@@ -20,6 +20,23 @@ Feature: Watch a list of campaigns joined by user
     When I go to the list of rodowi joined campaigns
     Then I should see 1 campaigns
 
+  Scenario: I can access joined campaigns by following link on user's profile
+    Given I am logged in as "SEMANA"
+    When I visit "rodowi" profile
+    And I follow "Joined campaigns"
+    Then I should see 1 campaigns
+
+  Scenario: A profile for an agency should not display a joined campaigns link
+    Given I am logged in as "rodowi"
+    When I visit "SEMANA" profile
+    Then I should see "Campaigns"
+
+  Scenario: User can access list of joined campaigns
+    Given I am logged in as "rodowi"
+    And I should see "Joined campaigns"
+    When I follow "Joined campaigns"
+    Then I should see 1 campaigns
+
   Scenario: User tries to see list of joined campaigns for an agency
     Given I am logged in as "rodowi"
     When I go to the list of SEMANA joined campaigns
