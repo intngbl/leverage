@@ -15,7 +15,7 @@ Leverage::Application.routes.draw do
       resources :enrollments, only: [:create, :destroy]
       get :joined_users, as: 'enrollment', on: :member
     end
-    get :joined_campaigns, as: 'enrollment', on: :member
+    get :joined_campaigns, as: 'enrollments', on: :member
   end
 
 end

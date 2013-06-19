@@ -35,6 +35,11 @@ When(/^I go to the list of (\w+) campaigns$/) do |name|
   visit user_campaigns_path(@agency.id)
 end
 
+When(/^I go to the list of (\w+) joined campaigns$/) do |name|
+  @user = User.where(name: name).first
+  visit enrollments_user_path(@user.id)
+end
+
 When(/^I follow "(.*?)"$/) do |link_title|
   click_link(link_title)
 end
