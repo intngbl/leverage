@@ -14,7 +14,7 @@
       %td
         - if can? :destroy, Enrollment
           - enrollment = joined_user.enrollments.find_by_campaign_id(@campaign.id)
-          = simple_form_for enrollment, :url => user_campaign_enrollment_path(@user.id, @campaign.id), :method => :delete do |f|
+          = simple_form_for enrollment, :url => user_campaign_enrollment_path(@user.id, @campaign.id, enrollment.id), :method => :delete do |f|
             = f.input :id, :as => :hidden, :input_html => { :value => enrollment.id }
             = f.submit "Unsubscribe", class: "btn"
 
