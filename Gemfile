@@ -19,6 +19,8 @@ gem "figaro", ">= 0.5.3"
 gem 'bootstrap-sass'
 gem 'simple_form'
 
+gem 'newrelic_rpm'
+
 group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development
   gem "better_errors", ">= 0.3.2", :group => :development
