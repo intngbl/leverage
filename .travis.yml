@@ -1,16 +1,52 @@
-# .travis.yml
+---
 language: ruby
 rvm:
-  - 2.0.0
-# To support testing with a web browser (Firefox)
+- 2.0.0
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 before_script:
-  - "rake db:migrate"
-  - "rake db:test:prepare"
+- rake db:migrate
+- rake db:test:prepare
 gemfile:
-  - gemfiles/Gemfile.ci
+- gemfiles/Gemfile.ci
 notifications:
   email:
-    - rod@wilhel.me
+  - rod@wilhel.me
+env:
+- secure: |-
+    bSgh+pF+Hji9VpIy0RoJ5OzjXRm97ERDNVa43OPjts82exsAT3tbqcpTWeCb
+    ES+RQYdiOTAJBjSABI2uPJWA6Qptvi5xYUhQY/K1DCPM1SVvBEhSMIflOwyX
+    ljnsw/LOyFQZ6waJI3g1hOLna3GIgX2HiFQwuDGJILx/wRtXfsk=
+- secure: |-
+    doukO6FVSTemqR/IQvYM2uRoMG3u0ATZWMa1TFXAHNgdFpp4Qt1tuv8MF0OF
+    rmNti/6kuQHuGYcpfwFEFdjGKhRP0KB0fjOqfcQ53FKG6BAa7FMC2p7le8k5
+    1zpTm0fGN0O2x46n13fxMuSbAeGJov1ZmzZOwy96wvDvBh1HwOQ=
+- secure: |-
+    Q+k9qqT2NmFM9A3A7pzNn2zGh2Z4fhtAJPVeoj6RuNlmsx1qXZys7ILQRTBR
+    k381Na25DVmxM74CAFTto7AdeKU4Hphsa1/2lENw2wTYiuqWUmbCDCp/O4nN
+    +/DinLou02Q3perWmyCKYxQCJ9jWGlKwrnEZ+Ord865sqEaK9I4=
+- secure: |-
+    Ta3E7ILXcmnHHKeXUZCYoODWLnTFkw5KgSjd047aAESK5l4zK22TTnUPVZ1Q
+    ZU9VxOauRevCrSnZeAb3vmhtxotDTNUA0dhavN4bR9ElgVDjFLI41wGoSqDL
+    zXLPqcw70o/aG7sPKttiUVvcaJcbaB8PRqmnaFuwIn7ZmTskB2M=
+- secure: |-
+    eZWLG8zjl9OGnxKQEayDhb9uIxWLzXlaJ45LyRkQfArvlQm81v1Qro0dhey0
+    /63vw5yrB87L953ZBZk59oeTODRNsi5J95QhtruEu85nUusXNVRFjak+ukDB
+    O8q1d5GmSTj9OdUHqw0FkZWlGzK7FKiUqIPxwx25gckWMSedPAM=
+- secure: |-
+    dq77H5Lc0ijw8xuUV6mHxKU/3ssBT2OU7T0w1OVbLtBKuJ67lpIK0cPPofvS
+    BwQFxWkz/yMxBJHviKKtWSmsG6ivf0WjCYaZt+LNMHVI6O5dufAVTofhvsYx
+    427UKUsRqpDGP5CzNAc8U+AV8CaaVXcGbfUv3vhcjURJNTJSSRE=
+- secure: |-
+    iqFd6hTCSJ83mq9iEUczQbYZXSSM0xgSdh24jwbS7pqXh6pKounEATxmfFCW
+    4OFXhXIASaN1xmb8ltc0ojXc77xuGiRNf/kpuH2cFY8iwCiC4c/98NNOpdc/
+    kaIFMvjMsVMrDkacmxvXe7BgTqEPx0Nkh8u3EmxszIAykM676Rg=
+- secure: |-
+    k6rJ/hwVoXL+5pIl9IUhQg0n7+rKBdeB+s88eyqqQgeNzz58mDuOhPpCeY9H
+    0axky6KaC57mrryOsvOYqggblgiGu8MHKiNlWghsYPp8JUYWxdXMKcDV+lOU
+    L6d5o/8l+lcIncklr7TVW3NNKcAtMD1WUxlnKhvHIXa1OK59E/c=
+- secure: |-
+    L3Fu3fglzTfUcrL11ZX8PC8PYtlAZdLK3jV7VITRCAAUnwC0rXQTLJxhz8D6
+    18PoAAfrDbt68n4h8T/Nzh6aVJLCp4IpVv1TeIChKC5fXBLVK+h4qnoLoM45
+    ovZ8iMJ+7IBnT8t/LtUrwxlIJthG60PKaMcDKpUCRxgTusH94zQ=
