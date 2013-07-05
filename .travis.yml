@@ -1,0 +1,12 @@
+# .travis.yml
+language: ruby
+rvm:
+  - 2.0.0
+# To support testing with a web browser (Firefox)
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+notifications:
+  email:
+    - rod@wilhel.me
+

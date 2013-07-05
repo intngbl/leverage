@@ -230,6 +230,7 @@ DEPENDENCIES
   pg
   quiet_assets (>= 1.0.1)
   rails (= 3.2.13)
+  rake
   rolify (>= 3.2.0)
   rspec-rails (>= 2.12.2)
   sass-rails (~> 3.2.3)

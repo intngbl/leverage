@@ -41,6 +41,7 @@ group :test do
   gem "launchy", ">= 2.1.2"
   gem "capybara", ">= 2.0.2"
   gem 'selenium-webdriver'
+  gem 'rake'
 end
 
 group :production do
