@@ -143,7 +143,10 @@ describe User do
 
     describe "join" do
       subject { other_user }
-      before { other_user.join!(campaign) }
+      before do
+        other_user.add_role(:tweeter)
+        other_user.join!(campaign)
+      end
       it { should be_joined(campaign) }
       its(:joined_campaigns) { should include(campaign) }
 

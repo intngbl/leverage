@@ -4,6 +4,7 @@ class EnrollmentsController < ApplicationController
   load_and_authorize_resource
   load_resource :user, instance_name: :agency
   load_resource :campaign, through: :agency
+  load_resource :enrollment
 
   def create
     if current_user.join!(@campaign)
@@ -14,18 +15,15 @@ class EnrollmentsController < ApplicationController
     redirect_to user_campaign_path(@agency, @campaign)
   end
 
+  # Covers 2 cases:
+  # 1 - when admin will unsubscribe users through the joined users table
+  # 2 - when current_user unsubscribes himself from a campaign (leave button)
   def destroy
-    # Covers 2 cases:
-    # 1 - when admin will unsubscribe users through the joined users table
-    # 2 - when current_user unsubscribes himself from a campaign (leave button)
     if params[:enrollment]
-      enrollment = Enrollment.find(params[:enrollment][:id])
-      enrolled_user = User.find(enrollment.user_id)
-    else
-      enrolled_user = current_user
+      @enrollment = Enrollment.find(params[:enrollment][:id])
     end
 
-    if enrolled_user.leave!(@campaign)
+    if @enrollment.user.leave!(@campaign)
       flash[:notice] = "Unsubscribed successfully."
     else
       flash[:error] = "Unsubscription failed."

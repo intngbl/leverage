@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   end
 
   def leave!(campaign)
-    enrollments.find_by_campaign_id(campaign.id).destroy
+    enrollments.find_by_campaign_id(campaign).destroy
+  rescue ActiveRecord::RecordNotFound
+    return false
   end
+
 end
