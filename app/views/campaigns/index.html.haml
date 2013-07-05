@@ -11,13 +11,16 @@
       %th
       %th
   %tbody
-    - @campaigns.each do |campaign|
+    - @campaigns.each do |c|
+      - cid = c.id
+      - uid = c.user_id
       %tr
-        %td= link_to campaign.title, user_campaign_path(@user.id, campaign.id)
-        %td= campaign.brief
-        %td= campaign.price
-        %td= campaign.created_at.to_date
-        %td= link_to("Edit campaign", edit_user_campaign_path(@user.id, campaign.id), :class => 'btn btn-mini') if campaign.user == current_user
-        %td= link_to("Delete campaign", user_campaign_path(@user.id, campaign.id), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') if campaign.user == current_user
+        %td= link_to c.title, user_campaign_path(uid, cid)
+        %td= c.brief
+        %td= c.price
+        %td= c.created_at.to_date
+        - if c.user == current_user
+          %td= link_to("Edit campaign", edit_user_campaign_path(uid, cid), :class => 'btn btn-mini')
+          %td= link_to("Delete campaign", user_campaign_path(uid, cid), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini')
 
 

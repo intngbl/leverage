@@ -5,6 +5,14 @@ class CampaignsController < ApplicationController
   load_resource through: :user
   authorize_resource except: [:index, :show]
 
+  def index
+    redirect_to user_path(@user) unless @user.has_role? :agency
+  end
+
+  def show
+    @joined_users_count = @campaign.joined_users.count
+  end
+
   def create
     if @campaign.save
       redirect_to user_campaign_path(current_user.id, @campaign.id), :notice => "Campaign created."
@@ -28,6 +36,10 @@ class CampaignsController < ApplicationController
     else
       render :action => 'edit', :status => 403
     end
+  end
+
+  def joined_users
+    @joined_users = @campaign.joined_users
   end
 
 end

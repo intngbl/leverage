@@ -3,4 +3,7 @@
   Title: #{@campaign.title}
 %p
   Brief: #{@campaign.brief}
-
+- if current_user && current_user.has_role?(:tweeter)
+  %p= render 'enrollment_form'
+- if user_signed_in?
+  %p= link_to "#{pluralize(@joined_users_count, 'user')} have joined", enrollment_user_campaign_path(@user, @campaign)

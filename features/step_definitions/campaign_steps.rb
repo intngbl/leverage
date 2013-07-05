@@ -1,31 +1,31 @@
 
 ### Given
 
-Given(/^(\w+) (\w+) exist$/) do |role, name|
-  @user_attributes ||= {}
-  @user_attributes[name.to_sym] = FactoryGirl.attributes_for(:user, name: name)
-  user = FactoryGirl.create(:user, @user_attributes[name.to_sym])
-  user.add_role(role.downcase.to_sym)
-end
-
 Given(/^Agency (\w+) has (\d+) campaigns$/) do |name, count|
   agency = User.where(name: name).first
   count.to_i.times { FactoryGirl.create(:campaign, user: agency) }
 end
 
-Given(/^I am not authenticated/) do
-  visit '/users/sign_out'
-end
-
-Given(/^I am logged in as "(.*?)"$/) do |name|
-  @current_user_name = name
-  sign_in(@user_attributes[name.to_sym])
-end
-
-Given(/^Thus able to (\w+) a Campaign/) do |action|
+Given(/^Thus able to (\w+) a campaign/) do |action|
   current_user_attributes = @user_attributes[@current_user_name.to_sym]
   u = User.where(name: current_user_attributes[:name]).first
-  Ability.new(u).can?(action.to_sym, Campaign.new).should == true
+  Ability.new(u).can?(action.to_sym, Campaign.new).should be_true
+end
+
+Given(/^I should be enrolled in campaign "(.*?)"$/) do |campaign_title|
+  campaign = Campaign.where(title: campaign_title).first
+  assert @user.joined?(campaign), "#{@user.name} should be enrolled in #{campaign.title}"
+end
+
+Given(/^I am enrolled in campaign "(.*?)"$/) do |campaign_title|
+  campaign = Campaign.where(title: campaign_title).first
+  @user.enrollments.create(campaign_id: campaign.id)
+end
+
+Given(/^User "(.*?)" is enrolled in campaign "(.*?)"$/) do |user_name, campaign_title|
+  user = User.where(name: user_name).first
+  campaign = Campaign.where(title: campaign_title).first
+  user.enrollments.create(campaign_id: campaign.id)
 end
 
 ### When
@@ -33,6 +33,11 @@ end
 When(/^I go to the list of (\w+) campaigns$/) do |name|
   @agency = User.where(name: name).first
   visit user_campaigns_path(@agency.id)
+end
+
+When(/^I go to the list of (\w+) joined campaigns$/) do |name|
+  @user = User.where(name: name).first
+  visit enrollments_user_path(@user.id)
 end
 
 When(/^I follow "(.*?)"$/) do |link_title|
@@ -66,14 +71,23 @@ When(/^I try to create a campaign for "(.*?)"$/) do |name|
   post "/users/#{some_user.id}/campaigns", crafted_parameters
 end
 
+When(/^I go to campaign "(.*?)"$/) do |title|
+  campaign = Campaign.where(title: title).first
+  visit user_campaign_path(campaign.user_id, campaign.id)
+end
+
 # Then
 
 Then(/^I should see (\d+) campaigns$/) do |count|
-  all("tbody > tr").count.should == count.to_i
+  all("tbody > tr").count.should eq(count.to_i)
 end
 
 Then(/^"(.*?)" should have (\d+) campaigns$/) do |name, count|
   user = User.where(name: name).first
-  user.campaigns.count == count.to_i
+  user.campaigns.count.should eq(count.to_i)
 end
 
+Then(/^"(.*?)" should have (\d+) users$/) do |title, count|
+  campaign = Campaign.where(title: title).first
+  campaign.joined_users.count.should eq(count.to_i)
+end

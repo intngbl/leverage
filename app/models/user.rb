@@ -11,4 +11,21 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   has_many :campaigns, dependent: :destroy
+  has_many :enrollments, dependent: :destroy
+  has_many :joined_campaigns, through: :enrollments, source: :campaign
+
+  def joined?(campaign)
+    enrollments.find_by_campaign_id(campaign.id).present?
+  end
+
+  def join!(campaign)
+    enrollments.create!(campaign_id: campaign.id)
+  end
+
+  def leave!(campaign)
+    enrollments.find_by_campaign_id(campaign).destroy
+  rescue ActiveRecord::RecordNotFound
+    return false
+  end
+
 end

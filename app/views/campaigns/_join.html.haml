@@ -1,0 +1,6 @@
+- enrollment = current_user.enrollments.build(campaign_id: @campaign.id)
+- url = user_campaign_enrollments_path(@user.id, @campaign.id)
+= simple_form_for(enrollment, url: url) do |f|
+  = f.submit "Join", class: "btn btn-large btn-primary"
+
+

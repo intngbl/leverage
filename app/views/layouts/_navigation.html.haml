@@ -6,6 +6,9 @@
         = link_to 'Campaigns', user_campaigns_path(current_user.id)
       %li
         = link_to 'New campaign', new_user_campaign_path(current_user.id)
+    - elsif current_user.has_role?(:tweeter)
+      %li
+        = link_to 'Joined campaigns', enrollments_user_path(current_user.id)
     %li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
     %li

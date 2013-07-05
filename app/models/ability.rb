@@ -8,6 +8,9 @@ class Ability
       can :manage, :all
     elsif user.has_role? :agency
       can :manage, Campaign
+      can :destroy, Enrollment
+    elsif user.has_role? :tweeter
+      can [:create, :destroy], Enrollment
     end
   end
 
