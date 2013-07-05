@@ -26,6 +26,7 @@ group :development do
   gem "better_errors", ">= 0.3.2", :group => :development
   gem "binding_of_caller", ">= 0.6.8", :group => :development
   gem 'html2haml'
+  gem 'travis'
 end
 
 group :development, :test do
@@ -41,6 +42,7 @@ group :test do
   gem "launchy", ">= 2.1.2"
   gem "capybara", ">= 2.0.2"
   gem 'selenium-webdriver'
+  gem 'rake'
 end
 
 group :production do
