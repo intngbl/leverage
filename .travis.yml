@@ -6,7 +6,11 @@ rvm:
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+before_script:
+  - "rake db:migrate"
+  - "rake db:test:prepare"
+gemfile:
+  - gemfiles/Gemfile.ci
 notifications:
   email:
     - rod@wilhel.me
-
