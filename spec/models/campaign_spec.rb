@@ -10,6 +10,8 @@ describe Campaign do
   it { should respond_to(:title) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
+  it { should respond_to(:enrollments) }
+  it { should respond_to(:joined_users) }
   its(:user) { should == user }
 
   it { should be_valid }
@@ -45,6 +47,15 @@ describe Campaign do
   describe "with brief that is too long" do
     before { @campaign.brief = "foo" * 47 }
     it { should_not be_valid }
+  end
+
+  describe "users who joined the campaign" do
+    before do
+      @campaign.save
+      @other_user = FactoryGirl.create(:user)
+      @other_user.join!(@campaign)
+    end
+    its(:joined_users) { should include(@other_user) }
   end
 
 end

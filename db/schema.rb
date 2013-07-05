@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612184548) do
+ActiveRecord::Schema.define(:version => 20130615172343) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20130612184548) do
   end
 
   add_index "campaigns", ["user_id", "created_at"], :name => "index_campaigns_on_user_id_and_created_at"
+
+  create_table "enrollments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "enrollments", ["campaign_id"], :name => "index_enrollments_on_campaign_id"
+  add_index "enrollments", ["user_id", "campaign_id"], :name => "index_enrollments_on_user_id_and_campaign_id", :unique => true
+  add_index "enrollments", ["user_id"], :name => "index_enrollments_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

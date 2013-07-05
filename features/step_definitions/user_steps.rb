@@ -5,8 +5,8 @@ def create_visitor
     :password => "changeme", :password_confirmation => "changeme" }
 end
 
-def find_user
-  @user ||= User.where(:email => @visitor[:email]).first
+def find_user(email = @visitor[:email])
+  @user ||= User.where(email: email).first
 end
 
 def create_unconfirmed_user
@@ -69,7 +69,7 @@ Given /^Roles are defined$/ do
   create_roles
 end
 
-Given /^I am not logged in$/ do
+Given(/^I am not logged in$/) do
   visit '/users/sign_out'
 end
 
@@ -84,6 +84,20 @@ Given /^I am logged in as admin$/ do
   sign_in
 end
 
+Given(/^I am logged in as "(.*?)"$/) do |name|
+  @current_user_name = name
+  attributes = @user_attributes[name.to_sym]
+  sign_in(attributes)
+  find_user(attributes[:email])
+end
+
+Given(/^(\w+) (\w+) exist$/) do |role, name|
+  @user_attributes ||= {}
+  @user_attributes[name.to_sym] = FactoryGirl.attributes_for(:user, name: name)
+  user = FactoryGirl.create(:user, @user_attributes[name.to_sym])
+  user.add_role(role.downcase.to_sym)
+end
+
 Given /^I exist as a user$/ do
   create_user
   sign_in
@@ -95,10 +109,6 @@ Given /^I do not exist as a user$/ do
 end
 
 Given /^I exist as an unconfirmed user$/ do
-  create_unconfirmed_user
-end
-
-Given /^I am $/ do
   create_unconfirmed_user
 end
 
@@ -191,6 +201,11 @@ When(/^Select my role as (\w+)/) do |role_name|
   end
 end
 
+When(/^I visit "(\w+)" profile$/) do |name|
+  u = User.where(name: name).first
+  visit user_path(u)
+end
+
 ### THEN ###
 
 Then /^I should be signed in$/ do
@@ -207,6 +222,18 @@ end
 
 Then(/^I should see "(.*?)"$/) do |message|
   page.should have_content(message)
+end
+
+Then(/^I should not see "(.*?)"$/) do |message|
+  page.should_not have_content(message)
+end
+
+Then(/^I should see button "(.*?)"$/) do |title|
+  page.should have_button(title)
+end
+
+Then(/^I should not see button "(.*?)"$/) do |title|
+  page.should_not have_button(title)
 end
 
 Then /^I should see my name$/ do
