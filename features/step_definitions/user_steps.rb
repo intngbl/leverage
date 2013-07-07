@@ -103,6 +103,10 @@ Given /^I exist as a user$/ do
   sign_in
 end
 
+Given(/^I exist as a twitter user$/) do
+  @user = FactoryGirl.create(:twitter_user)
+end
+
 Given /^I do not exist as a user$/ do
   create_visitor
   delete_user
@@ -121,6 +125,10 @@ end
 When /^I sign in with valid credentials$/ do
   create_visitor
   sign_in
+end
+
+When /^I sign in with Twitter$/ do
+  visit user_omniauth_authorize_path(:twitter)
 end
 
 When /^I sign out$/ do
@@ -177,6 +185,12 @@ When /^I edit my account details$/ do
   click_button "Update"
 end
 
+When(/^I update my "(.*?)" to "(.*?)"$/) do |attribute, value|
+  click_link "Edit account"
+  fill_in attribute, :with => value
+  click_button "Update"
+end
+
 When /^I look at the list of users$/ do
   visit '/users'
 end
@@ -201,9 +215,17 @@ When(/^Select my role as (\w+)/) do |role_name|
   end
 end
 
+When(/^I follow "(.*?)"$/) do |link_title|
+  click_link(link_title)
+end
+
 When(/^I visit "(\w+)" profile$/) do |name|
   u = User.where(name: name).first
   visit user_path(u)
+end
+
+When(/^I click "(.*?)"$/) do |name|
+  click_button(name)
 end
 
 ### THEN ###
@@ -212,6 +234,8 @@ Then /^I should be signed in$/ do
   page.should have_content "Logout"
   page.should_not have_content "Sign up"
   page.should_not have_content "Login"
+  # Pending: ugly hack for twitter sign ins
+  @user ||= User.last
 end
 
 Then /^I should be signed out$/ do

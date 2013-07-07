@@ -5,7 +5,10 @@ Leverage::Application.routes.draw do
   end
   root :to => "home#index"
 
-  devise_for :users, :controllers => {:confirmations => 'confirmations'}
+  devise_for :users, controllers: {
+    confirmations: 'confirmations',
+    omniauth_callbacks: 'omniauth_callbacks'
+  }
   devise_scope :user do
     put "/confirm" => "confirmations#confirm"
   end
