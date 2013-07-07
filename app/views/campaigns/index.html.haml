@@ -1,6 +1,18 @@
 - provide(:title, "#{@user.name} campaigns")
 
 %h3 Campaigns
+
+- if @search.present?
+  = search_form_for @search, url: user_campaigns_path(@user) do |f|
+    %div.field
+      = f.text_field :title_cont, placeholder: "Search by title"
+    %div.field
+      = f.label :price_gteq, "Price between"
+      = f.number_field :price_gteq, class: "input-mini"
+      = f.label :price_lteq, "and"
+      = f.number_field :price_lteq, class: "input-mini"
+    = f.submit "Search", class: "btn"
+
 %table.table.table-condensed
   %thead
     %tr
@@ -17,7 +29,7 @@
       %tr
         %td= link_to c.title, user_campaign_path(uid, cid)
         %td= c.brief
-        %td= c.price
+        %td= number_to_currency(c.price)
         %td= c.created_at.to_date
         - if c.user == current_user
           %td= link_to("Edit campaign", edit_user_campaign_path(uid, cid), :class => 'btn btn-mini')
