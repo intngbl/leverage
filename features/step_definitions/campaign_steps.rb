@@ -40,10 +40,6 @@ When(/^I go to the list of (\w+) joined campaigns$/) do |name|
   visit enrollments_user_path(@user.id)
 end
 
-When(/^I follow "(.*?)"$/) do |link_title|
-  click_link(link_title)
-end
-
 When(/^I follow "(.*?)" in row (\d+)$/) do |link_title, row|
   find("tbody tr:nth-child(#{row}) > td > a:contains('#{link_title}')").click
 end
