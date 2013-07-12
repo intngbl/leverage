@@ -1,17 +1,16 @@
-- provide(:title, "#{@user.name} campaigns")
+- provide(:title, "All campaigns")
 
-%h3= "#{@user.name} campaigns"
+%h3 Campaigns
 
-- if @search.present?
-  = search_form_for @search, url: user_campaigns_path(@user) do |f|
-    %div.field
-      = f.text_field :title_cont, placeholder: "Search by title"
-    %div.field
-      = f.label :price_gteq, "Price between"
-      = f.number_field :price_gteq, class: "input-mini"
-      = f.label :price_lteq, "and"
-      = f.number_field :price_lteq, class: "input-mini"
-    = f.submit "Search", class: "btn"
+= search_form_for @search, url: campaigns_path do |f|
+  %div.field
+    = f.text_field :title_cont, placeholder: "Search by title"
+  %div.field
+    = f.label :price_gteq, "Price between"
+    = f.number_field :price_gteq, class: "input-mini"
+    = f.label :price_lteq, "and"
+    = f.number_field :price_lteq, class: "input-mini"
+  = f.submit "Search", class: "btn"
 
 %table.table.table-condensed
   %thead
@@ -34,5 +33,6 @@
         - if c.user == current_user
           %td= link_to("Edit campaign", edit_user_campaign_path(uid, cid), :class => 'btn btn-mini')
           %td= link_to("Delete campaign", user_campaign_path(uid, cid), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini')
+
 
 

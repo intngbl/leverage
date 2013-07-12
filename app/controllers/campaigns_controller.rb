@@ -1,12 +1,23 @@
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
-  load_resource :user
-  load_resource through: :user
+  load_resource :user, except: [:catalog]
+  load_resource through: :user, except: [:catalog]
   authorize_resource except: [:index, :show]
+
+  def catalog
+    @search = Campaign.search(params[:q])
+    @campaigns = @search.result
+  end
 
   def index
     redirect_to user_path(@user) unless @user.has_role? :agency
+
+    # This conditional avoids breaking when joined_campaigns re-use this method
+    if params[:controller] == "campaigns" && params[:action] == "index"
+      @search = @user.campaigns.search(params[:q])
+      @campaigns = @search.result
+    end
   end
 
   def show

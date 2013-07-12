@@ -1,9 +1,15 @@
 %h3 Users
+
+= search_form_for @search, html: { class: "form-search" } do |f|
+  %div.field
+    = f.text_field :name_cont, class: "search-query", placeholder: "Search by name"
+    = f.submit "Search", class: "btn"
+
 %table.table.table-condensed
   %thead
     %tr
       %th Username
-      %th Email
+      %th= sort_link @search, :email, "Email"
       %th Registered
       %th Role
       %th

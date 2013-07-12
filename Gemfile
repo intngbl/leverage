@@ -21,6 +21,7 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 
 gem 'newrelic_rpm'
+gem 'ransack'
 
 group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development
