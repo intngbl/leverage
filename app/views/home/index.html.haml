@@ -6,3 +6,7 @@
     = f.text_field :title_cont, placeholder: "Find a campaign"
   = f.submit "Search", class: "btn"
 
+%h3 Latest campaigns
+%ul
+  - @latest_campaigns.each do |campaign|
+    %li= link_to campaign.title, [campaign.user, campaign]
