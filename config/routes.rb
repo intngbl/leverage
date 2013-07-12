@@ -13,6 +13,8 @@ Leverage::Application.routes.draw do
     put "/confirm" => "confirmations#confirm"
   end
 
+  get "/campaigns", to: "campaigns#catalog"
+
   resources :users do
     resources :campaigns do
       resources :enrollments, only: [:create, :destroy]

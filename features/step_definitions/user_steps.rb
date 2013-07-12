@@ -168,6 +168,10 @@ When /^I return to the site$/ do
   visit '/'
 end
 
+When(/^I visit "(.*?)"$/) do |path|
+  visit path
+end
+
 When /^I sign in with a wrong email$/ do
   @visitor = @visitor.merge(:email => "wrong@example.com")
   sign_in
