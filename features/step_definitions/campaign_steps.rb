@@ -40,27 +40,6 @@ When(/^I go to the list of (\w+) joined campaigns$/) do |name|
   visit enrollments_user_path(@user.id)
 end
 
-When(/^I follow "(.*?)" in row (\d+)$/) do |link_title, row|
-  find("tbody tr:nth-child(#{row}) > td > a:contains('#{link_title}')").click
-end
-
-When(/^I fill in "(.*?)" with "(.*?)"$/) do |field, value|
-  fill_in(field, with: value)
-end
-
-When(/^I press "(.*?)"$/) do |button_title|
-  click_button(button_title)
-end
-
-When(/^I follow link in row (\d+)$/) do |row_number|
-  find("tbody tr:nth-child(#{row_number}) > td:nth-child(1) > a").click
-end
-
-When(/^I follow delete link in row (\d+)$/) do |row_number|
-  find("tbody tr:nth-child(#{row_number}) > td:nth-child(6) > a").click
-  page.driver.browser.switch_to.alert.accept
-end
-
 When(/^I try to create a campaign for "(.*?)"$/) do |name|
   some_user = User.where(name: name).first
   crafted_parameters = { title: "Hacked", brief: "FOR THE LULZ" }
@@ -70,6 +49,11 @@ end
 When(/^I go to campaign "(.*?)"$/) do |title|
   campaign = Campaign.where(title: title).first
   visit user_campaign_path(campaign.user_id, campaign.id)
+end
+
+When(/^I visit "(\w+)" campaigns$/) do |name|
+  u = User.where(name: name).first
+  visit user_campaigns_path(u)
 end
 
 # Then

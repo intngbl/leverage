@@ -15,6 +15,10 @@ FactoryGirl.define do
       after(:create) { |user| user.add_role(:agency) }
     end
 
+    factory :tweeter do
+      after(:create) { |user| user.add_role(:tweeter) }
+    end
+
     factory :twitter_user do
       sequence(:email) { |n| "tweeter-#{n}@leverage.com" }
       password nil

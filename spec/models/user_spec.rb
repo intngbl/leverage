@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe User do
 
@@ -156,7 +157,21 @@ describe User do
         its(:joined_campaigns) { should_not include(campaign) }
       end
     end
+  end
 
+  describe "abilities", focus: true do
+    context "when is a tweeter" do
+      subject { FactoryGirl.create(:tweeter) }
+      context "when dealing with campaigns" do
+        abilities = { catalog: true, read: true, create: false, destroy: false }
+        it { should have_ability(abilities, for: Campaign) }
+      end
+    end
+    context "when is an agency" do
+      let(:agency) { FactoryGirl.create(:agency) }
+      subject { agency }
+      it { should have_ability(:all, for: Campaign) }
+    end
   end
 
 end

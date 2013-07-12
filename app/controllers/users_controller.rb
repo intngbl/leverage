@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   load_resource
   authorize_resource except: [:show, :joined_campaigns]
 
+  def index
+    @search = User.search(params[:q])
+    @users = @search.result
+  end
+
   def update
     if @user.update_attributes(params[:user], :as => :admin)
       redirect_to users_path, :notice => "User updated."

@@ -9,4 +9,5 @@ class Campaign < ActiveRecord::Base
   validates :user_id, presence: true
 
   default_scope order: 'campaigns.created_at DESC'
+  scope :latest, -> { limit(3) }
 end
