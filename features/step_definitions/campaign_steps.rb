@@ -51,6 +51,11 @@ When(/^I go to campaign "(.*?)"$/) do |title|
   visit user_campaign_path(campaign.user_id, campaign.id)
 end
 
+When(/^I visit "(\w+)" campaigns$/) do |name|
+  u = User.where(name: name).first
+  visit user_campaigns_path(u)
+end
+
 # Then
 
 Then(/^I should see (\d+) campaigns$/) do |count|

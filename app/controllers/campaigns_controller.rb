@@ -15,7 +15,7 @@ class CampaignsController < ApplicationController
 
     # This conditional avoids breaking when joined_campaigns re-use this method
     if params[:controller] == "campaigns" && params[:action] == "index"
-      @search = Campaign.search(params[:q])
+      @search = @user.campaigns.search(params[:q])
       @campaigns = @search.result
     end
   end

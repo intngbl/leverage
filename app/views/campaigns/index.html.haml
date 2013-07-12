@@ -1,6 +1,6 @@
 - provide(:title, "#{@user.name} campaigns")
 
-%h3 Campaigns
+%h3= "#{@user.name} campaigns"
 
 - if @search.present?
   = search_form_for @search, url: user_campaigns_path(@user) do |f|
