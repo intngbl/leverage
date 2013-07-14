@@ -13,7 +13,7 @@ Feature: Tweeters should be able to join a campaign
     Given I am logged in as "rodowi"
     When I go to campaign "Experience Virgin America"
     And I press "Join"
-    Then I should see "You just joined the campaign."
+    Then I should see t("campaigns.join.request")
     And I should be enrolled in campaign "Experience Virgin America"
 
   Scenario: Guest can't join a campaign

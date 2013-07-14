@@ -8,9 +8,9 @@ class EnrollmentsController < ApplicationController
 
   def create
     if current_user.join!(@campaign)
-      flash[:notice] = "You just joined the campaign."
+      flash[:notice] = t('campaigns.join.request')
     else
-      flash[:error] = "Could not joined campaign."
+      flash[:error] = t('campaigns.join.failure')
     end
     redirect_to user_campaign_path(@agency, @campaign)
   end
