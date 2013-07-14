@@ -1,0 +1,24 @@
+- title = "#{@user.name} joined campaigns"
+- set_title(title)
+
+%h3= title
+
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Title
+      %th Brief
+      %th Status
+      %th Price
+      %th Created on
+  %tbody
+    - @campaigns.each do |c|
+      - cid = c.id
+      - uid = c.user_id
+      %tr
+        %td= link_to c.title, user_campaign_path(uid, cid)
+        %td= c.brief
+        %td= enrollment_status_label(@user, c)
+        %td= number_to_currency(c.price)
+        %td= c.created_at.to_date
+

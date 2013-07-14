@@ -16,4 +16,16 @@ module ApplicationHelper
     Role.find(:all, :conditions => ["name != ?", :admin])
   end
 
+  def set_title(title)
+    provide(:title, title)
+  end
+
+  def enrollment_status_label(user, campaign)
+    authorized = user.authorized_for?(campaign)
+    klass, message = authorized ? ['success', 'approved'] : ['warning', 'waiting for approval']
+    content_tag :span, class: "label label-#{klass}" do
+      message
+    end
+  end
+
 end

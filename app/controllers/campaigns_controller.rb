@@ -12,12 +12,8 @@ class CampaignsController < ApplicationController
 
   def index
     redirect_to user_path(@user) unless @user.has_role? :agency
-
-    # This conditional avoids breaking when joined_campaigns re-use this method
-    if params[:controller] == "campaigns" && params[:action] == "index"
-      @search = @user.campaigns.search(params[:q])
-      @campaigns = @search.result
-    end
+    @search = @user.campaigns.search(params[:q])
+    @campaigns = @search.result
   end
 
   def show
