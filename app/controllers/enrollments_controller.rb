@@ -37,4 +37,9 @@ class EnrollmentsController < ApplicationController
     end
   end
 
+  def authorize
+    @enrollment.authorize!
+    redirect_to recruits_campaign_path(@enrollment.campaign)
+  end
+
 end

@@ -1,9 +1,14 @@
-%h3 Users who joined the campaign
+- title = "Users enrolled for '#{@campaign.title}'"
+- set_title(title)
+
+%h3= title
+
 %table.table.table-condensed
   %thead
     %tr
       %th Username
       %th Email
+      %th
       %th
   %tbody
   - @joined_users.each do |joined_user|
@@ -11,10 +16,5 @@
       %td= link_to joined_user.name, joined_user
       %td= joined_user.email
       %td
-      %td
-        - if can? :destroy, Enrollment
-          - enrollment = joined_user.enrollments.find_by_campaign_id(@campaign.id)
-          = simple_form_for enrollment, :url => user_campaign_enrollment_path(@user.id, @campaign.id, enrollment.id), :method => :delete do |f|
-            = f.input :id, :as => :hidden, :input_html => { :value => enrollment.id }
-            = f.submit "Unsubscribe", class: "btn"
+      %td= enrollment_actions_for(joined_user, @campaign)
 

@@ -28,6 +28,13 @@ Given(/^User "(.*?)" is enrolled in campaign "(.*?)"$/) do |user_name, campaign_
   user.enrollments.create(campaign_id: campaign.id)
 end
 
+Given(/^User "(.*?)" is authorized in campaign "(.*?)"$/) do |user_name, campaign_title|
+  user = User.where(name: user_name).first
+  campaign = Campaign.where(title: campaign_title).first
+  enrollment = user.enrollments.find_by_campaign_id(campaign.id)
+  enrollment.authorize!
+end
+
 ### When
 
 When(/^I go to the list of (\w+) campaigns$/) do |name|
