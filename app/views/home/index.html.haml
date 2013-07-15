@@ -9,4 +9,4 @@
 %h3 Latest campaigns
 %ul
   - @latest_campaigns.each do |campaign|
-    %li= link_to campaign.title, [campaign.user, campaign]
+    %li= link_to campaign.title, campaign

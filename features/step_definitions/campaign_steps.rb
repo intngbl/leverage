@@ -32,12 +32,12 @@ end
 
 When(/^I go to the list of (\w+) campaigns$/) do |name|
   @agency = User.where(name: name).first
-  visit user_campaigns_path(@agency.id)
+  visit user_campaigns_path(@agency)
 end
 
 When(/^I go to the list of (\w+) joined campaigns$/) do |name|
   @user = User.where(name: name).first
-  visit enrollments_user_path(@user.id)
+  visit recruitments_user_path(@user)
 end
 
 When(/^I try to create a campaign for "(.*?)"$/) do |name|
@@ -48,7 +48,7 @@ end
 
 When(/^I go to campaign "(.*?)"$/) do |title|
   campaign = Campaign.where(title: title).first
-  visit user_campaign_path(campaign.user_id, campaign.id)
+  visit campaign_path(campaign)
 end
 
 When(/^I visit "(\w+)" campaigns$/) do |name|

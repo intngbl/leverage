@@ -2,9 +2,8 @@ class EnrollmentsController < ApplicationController
   before_filter :authenticate_user!
 
   load_and_authorize_resource
-  load_resource :user, instance_name: :agency
-  load_resource :campaign, through: :agency
-  load_resource :enrollment
+  load_resource :campaign, only: [:create]
+  load_resource
 
   def create
     if current_user.join!(@campaign)
@@ -12,7 +11,7 @@ class EnrollmentsController < ApplicationController
     else
       flash[:error] = t('campaigns.join.failure')
     end
-    redirect_to user_campaign_path(@agency, @campaign)
+    redirect_to campaign_path(@campaign)
   end
 
   # Covers 2 cases:
@@ -23,16 +22,18 @@ class EnrollmentsController < ApplicationController
       @enrollment = Enrollment.find(params[:enrollment][:id])
     end
 
-    if @enrollment.user.leave!(@campaign)
+    campaign = @enrollment.campaign
+
+    if @enrollment.destroy
       flash[:notice] = "Unsubscribed successfully."
     else
       flash[:error] = "Unsubscription failed."
     end
 
     if current_user.has_role? :tweeter
-      redirect_to user_campaign_path(@agency, @campaign)
+      redirect_to campaign
     else
-      redirect_to enrollment_user_campaign_path(@agency, @campaign)
+      redirect_to recruits_campaign_path(campaign)
     end
   end
 
