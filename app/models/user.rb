@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     enrollments.find_by_campaign_id(campaign.id).present?
   end
 
+  def authorized_for?(campaign)
+    !!enrollments.find_by_campaign_id(campaign.id).try(:authorized?)
+  end
+
   def join!(campaign)
     enrollments.create!(campaign_id: campaign.id)
   end

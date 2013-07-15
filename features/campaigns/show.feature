@@ -20,7 +20,8 @@ Feature: Show campaign details
     When I go to campaign "Experience Virgin America"
     And I follow "1 user have joined"
     Then I should see "rodowi"
-    And I should see button "Unsubscribe"
+    And I should see button "Accept"
+    And I should see button "Decline"
 
   Scenario: Guest is not allowed to see list of users who joined campaign
     Given I am not logged in

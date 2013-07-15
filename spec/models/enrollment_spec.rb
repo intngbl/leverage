@@ -4,7 +4,7 @@ describe Enrollment do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:campaign) { FactoryGirl.create(:campaign) }
-  let(:enrollment) { user.enrollments.build(campaign_id: campaign.id) }
+  let(:enrollment) { user.enrollments.create(campaign_id: campaign.id) }
 
   subject { enrollment }
 
@@ -33,5 +33,15 @@ describe Enrollment do
   describe "when enrolled user id is not present" do
     before { enrollment.user_id = nil }
     it { should_not be_valid }
+  end
+
+  describe "it should not be authorized by default" do
+    it { enrollment.authorized?.should be_false }
+  end
+
+  context "when authorized" do
+    before { enrollment.authorize! }
+    it { enrollment.authorized?.should be_true }
+    it { user.authorized_for?(campaign).should be_true }
   end
 end

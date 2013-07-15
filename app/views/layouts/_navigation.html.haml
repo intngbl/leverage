@@ -3,12 +3,12 @@
   - if user_signed_in?
     - if current_user.has_role?(:agency)
       %li
-        = link_to 'Campaigns', user_campaigns_path(current_user.id)
+        = link_to 'Campaigns', user_campaigns_path(current_user)
       %li
-        = link_to 'New campaign', new_user_campaign_path(current_user.id)
+        = link_to 'New campaign', new_user_campaign_path(current_user)
     - elsif current_user.has_role?(:tweeter)
       %li
-        = link_to 'Joined campaigns', enrollments_user_path(current_user.id)
+        = link_to 'Joined campaigns', recruitments_user_path(current_user)
     %li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
     %li

@@ -12,6 +12,7 @@ Feature: Campaign owners should be able to unsubscribe users
   Scenario: Agency can unsubscribe users from a campaign
     Given I am logged in as "SEMANA"
     And User "rodowi" is enrolled in campaign "Experience Virgin America"
+    And User "rodowi" is authorized in campaign "Experience Virgin America"
     When I go to campaign "Experience Virgin America"
     And I follow "1 user have joined"
     And I press "Unsubscribe"

@@ -7,5 +7,5 @@
   - if @user.has_role?(:agency)
     = link_to 'Campaigns', user_campaigns_path(@user)
   - elsif @user.has_role?(:tweeter)
-    = link_to 'Joined campaigns', enrollments_user_path(@user)
+    = link_to 'Joined campaigns', recruitments_user_path(@user)
 
