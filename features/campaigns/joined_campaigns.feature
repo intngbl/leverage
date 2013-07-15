@@ -49,3 +49,9 @@ Feature: Watch a list of campaigns joined by user
     And I go to the list of rodowi joined campaigns
     Then I should see 0 campaigns
 
+  Scenario: User access list of joined campaigns
+    Given I am logged in as "rodowi"
+    And User "rodowi" is authorized in campaign "Experience Virgin America"
+    When I go to the list of rodowi joined campaigns
+    Then I should see "approved"
+

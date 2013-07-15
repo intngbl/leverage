@@ -1,8 +1,8 @@
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
-  load_resource :user, except: [:catalog]
-  load_resource through: :user, except: [:catalog]
+  load_resource :user, only: [:index, :create, :new]
+  load_resource except: [:catalog]
   authorize_resource except: [:index, :show]
 
   def catalog
@@ -11,13 +11,9 @@ class CampaignsController < ApplicationController
   end
 
   def index
-    redirect_to user_path(@user) unless @user.has_role? :agency
-
-    # This conditional avoids breaking when joined_campaigns re-use this method
-    if params[:controller] == "campaigns" && params[:action] == "index"
-      @search = @user.campaigns.search(params[:q])
-      @campaigns = @search.result
-    end
+    redirect_to @user unless @user.has_role? :agency
+    @search = @user.campaigns.search(params[:q])
+    @campaigns = @search.result
   end
 
   def show
@@ -25,8 +21,9 @@ class CampaignsController < ApplicationController
   end
 
   def create
+    @campaign.user = @user
     if @campaign.save
-      redirect_to user_campaign_path(current_user.id, @campaign.id), :notice => "Campaign created."
+      redirect_to @campaign, :notice => "Campaign created."
     else
       render :action => 'new', :status => 403
     end
@@ -38,12 +35,12 @@ class CampaignsController < ApplicationController
     else
       flash[:error] = "Campaign not deleted."
     end
-    redirect_to :action => 'index'
+    redirect_to user_campaigns_path(current_user)
   end
 
   def update
     if @campaign.update_attributes(params[:campaign])
-      redirect_to user_campaign_path(current_user.id, @campaign.id), :notice => "Campaign updated."
+      redirect_to @campaign, :notice => "Campaign updated."
     else
       render :action => 'edit', :status => 403
     end

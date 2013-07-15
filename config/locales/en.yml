@@ -1,11 +1,14 @@
 en:
   campaigns:
-    new:
-      create: 'Create campaign'
-      header: 'New campaign'
     edit:
       header: 'Edit campaign'
       update: 'Update campaign'
+    join:
+      request: 'Your request to join was sent.'
+      failure: 'Could not send request.'
+    new:
+      create: 'Create campaign'
+      header: 'New campaign'
   cancan:
     failure:
       unauthorized: 'Not authorized to access this resource.'

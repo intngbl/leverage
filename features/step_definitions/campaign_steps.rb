@@ -28,16 +28,23 @@ Given(/^User "(.*?)" is enrolled in campaign "(.*?)"$/) do |user_name, campaign_
   user.enrollments.create(campaign_id: campaign.id)
 end
 
+Given(/^User "(.*?)" is authorized in campaign "(.*?)"$/) do |user_name, campaign_title|
+  user = User.where(name: user_name).first
+  campaign = Campaign.where(title: campaign_title).first
+  enrollment = user.enrollments.find_by_campaign_id(campaign.id)
+  enrollment.authorize!
+end
+
 ### When
 
 When(/^I go to the list of (\w+) campaigns$/) do |name|
   @agency = User.where(name: name).first
-  visit user_campaigns_path(@agency.id)
+  visit user_campaigns_path(@agency)
 end
 
 When(/^I go to the list of (\w+) joined campaigns$/) do |name|
   @user = User.where(name: name).first
-  visit enrollments_user_path(@user.id)
+  visit recruitments_user_path(@user)
 end
 
 When(/^I try to create a campaign for "(.*?)"$/) do |name|
@@ -48,7 +55,7 @@ end
 
 When(/^I go to campaign "(.*?)"$/) do |title|
   campaign = Campaign.where(title: title).first
-  visit user_campaign_path(campaign.user_id, campaign.id)
+  visit campaign_path(campaign)
 end
 
 When(/^I visit "(\w+)" campaigns$/) do |name|

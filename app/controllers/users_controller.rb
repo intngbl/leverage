@@ -29,7 +29,6 @@ class UsersController < ApplicationController
   def joined_campaigns
     if @user.has_role? :tweeter
       @campaigns = @user.joined_campaigns
-      render 'campaigns/index'
     else
       redirect_to user_path(@user)
     end

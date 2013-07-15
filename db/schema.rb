@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130707134433) do
+ActiveRecord::Schema.define(:version => 20130713023517) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "title"
@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(:version => 20130707134433) do
   create_table "enrollments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "campaign_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "authorized",  :default => false
   end
 
   add_index "enrollments", ["campaign_id"], :name => "index_enrollments_on_campaign_id"

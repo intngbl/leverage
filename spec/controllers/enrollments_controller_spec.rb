@@ -34,7 +34,7 @@ describe EnrollmentsController do
         post :create, user_id: @some_agency.id, campaign_id: @campaign.id
       end
       it "should redirect to campaign page" do
-        response.should redirect_to(user_campaign_path(@some_agency, @campaign))
+        response.should redirect_to(campaign_path(@campaign))
       end
       it "should add campaign to list of user's joined campaigns" do
         @user.joined_campaigns.should include(@campaign)

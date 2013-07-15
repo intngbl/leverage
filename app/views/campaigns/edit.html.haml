@@ -1,6 +1,6 @@
 %h3= t('.header')
 
-= simple_form_for [current_user, @campaign], :html => { :method => :put } do |f|
+= simple_form_for @campaign, :html => { :method => :put } do |f|
   = f.error_notification
   .form-inputs
     = f.input :title, :required => true

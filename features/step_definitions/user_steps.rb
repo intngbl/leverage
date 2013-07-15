@@ -256,6 +256,10 @@ Then(/^I should not see "(.*?)"$/) do |message|
   page.should_not have_content(message)
 end
 
+Then(/^I should see t\("(.*?)"\)$/) do |translation|
+  page.should have_content(I18n.t(translation))
+end
+
 Then(/^I should see button "(.*?)"$/) do |title|
   page.should have_button(title)
 end
