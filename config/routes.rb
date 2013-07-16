@@ -24,4 +24,7 @@ Leverage::Application.routes.draw do
     get :joined_campaigns, as: 'recruitments', on: :member
   end
 
+  resources :messages
+  resources :conversations
+
 end
