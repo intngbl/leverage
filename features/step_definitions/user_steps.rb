@@ -272,6 +272,14 @@ Then /^I should see my name$/ do
   page.should have_content @user[:name]
 end
 
+Then(/^I should see field "(.*?)" with value "(.*?)"$/) do |name, value|
+  page.should have_field(name, with: value)
+end
+
+Then(/^I should see disabled field "(.*?)" with "(.*?)"'s email$/) do |id, username|
+  page.should have_css("##{id}[disabled][value='#{User.where(name: username).first.email}']")
+end
+
 Then(/^My role should be (\w+)/) do |role_name|
   role = Role.where(name: role_name).first
   assert @user.roles.include?(role)

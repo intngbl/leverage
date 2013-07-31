@@ -5,5 +5,7 @@
     %b= message.subject
     %p= message.body
 
-= render 'shared/compose', conversation: @conversation
+= render 'shared/compose'
+
+%p= link_to 'Back', :back
 

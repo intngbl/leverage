@@ -8,7 +8,13 @@ class MessagesController < ApplicationController
 
   def create
     @recipients = find_users_by_recipients(params[:_recipients])
-    @receipt = current_user.send_message(@recipients, params[:message][:body], params[:message][:subject])
+
+    if params[:conversation].present?
+      conversation = Conversation.find(params[:conversation])
+      @receipt = current_user.reply_to_conversation(conversation, params[:message][:body])
+    else
+      @receipt = current_user.send_message(@recipients, params[:message][:body], params[:message][:subject])
+    end
 
     if @receipt.errors.blank?
       @conversation = @receipt.conversation

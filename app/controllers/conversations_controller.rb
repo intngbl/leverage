@@ -10,6 +10,7 @@ class ConversationsController < ApplicationController
   def show
     @receipts = mailbox.receipts_for(@conversation)
     @receipts.mark_as_read
+    @reply_to = @conversation.participants.keep_if { |p| p != current_user }.map(&:email).join(", ")
   end
 
   private
