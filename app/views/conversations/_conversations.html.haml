@@ -1,0 +1,12 @@
+- if conversations.present?
+  %table.table.table-condensed
+    %thead
+      %tr
+        %th Sender
+        %th Subject
+        %th Sent at
+    %tbody
+      = render conversations
+- else
+  %p No conversations found!
+

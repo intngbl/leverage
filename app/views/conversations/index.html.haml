@@ -5,16 +5,12 @@
 
 %p= link_to "New message", new_message_path
 
-%table.table.table-condensed
-  %thead
-    %tr
-      %th Sender
-      %th Subject
-      %th Sent at
-  %tbody
-    - @conversations.each do |conversation|
-      %tr
-        %td= link_to conversation.last_sender.name, conversation.last_sender
-        %td= link_to conversation.subject, conversation
-        %td= time_ago_in_words(conversation.updated_at)
+%h4 Inbox
+= render partial: "conversations", object: mailbox.inbox
+
+%h4 Sent messages
+= render partial: "conversations", object: mailbox.sentbox
+
+%h4 Trash
+= render partial: "conversations", object: mailbox.trash
 

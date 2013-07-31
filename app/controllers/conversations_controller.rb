@@ -1,10 +1,10 @@
 class ConversationsController < ApplicationController
   before_filter :authenticate_user!
+  helper_method :mailbox
 
   load_resource only: [:show]
 
   def index
-    @conversations = mailbox.inbox + mailbox.sentbox
   end
 
   def show
