@@ -14,7 +14,7 @@ Leverage::Application.routes.draw do
   end
 
   get "/campaigns", to: "campaigns#catalog"
-  post "/enrollments/:id/authorization", to: "enrollments#authorize", as: "enrollment_authorization"
+  put "/enrollments/:id/authorization", to: "enrollments#authorize", as: "enrollment_authorization"
 
   resources :users do
     resources :campaigns, shallow: true do
