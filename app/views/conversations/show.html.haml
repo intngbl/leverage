@@ -1,0 +1,11 @@
+%h3= @conversation.subject
+%ul
+  = content_tag_for(:li, @conversation.receipts_for(current_user)) do |receipt|
+    - message = receipt.message
+    %b= message.subject
+    %p= message.body
+
+= render 'shared/compose'
+
+%p= link_to 'Back', :back
+

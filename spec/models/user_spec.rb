@@ -103,6 +103,7 @@ describe User do
 
   before { @user = FactoryGirl.create(:user) }
   subject { @user }
+  let(:other_user) { FactoryGirl.create(:user) }
 
   describe "campaigns association" do
     it { should respond_to(:campaigns) }
@@ -140,7 +141,6 @@ describe User do
     let(:campaign) do
       FactoryGirl.create(:campaign, user: @user, created_at: 1.day.ago)
     end
-    let(:other_user) { FactoryGirl.create(:user) }
 
     describe "join" do
       subject { other_user }
@@ -159,7 +159,7 @@ describe User do
     end
   end
 
-  describe "abilities", focus: true do
+  describe "abilities" do
     context "when is a tweeter" do
       subject { FactoryGirl.create(:tweeter) }
       context "when dealing with campaigns" do
@@ -171,6 +171,29 @@ describe User do
       let(:agency) { FactoryGirl.create(:agency) }
       subject { agency }
       it { should have_ability(:all, for: Campaign) }
+    end
+  end
+
+  context "mailbox", focus: true do
+    it { should respond_to(:mailbox) }
+    it { should respond_to(:reply_to_conversation) }
+    it { should respond_to(:reply_to_sender) }
+    it { should respond_to(:send_message) }
+
+    context "messaging a user" do
+      before { @user.send_message(other_user, "what's your opinion on the mailbox gem?", "tsup") }
+      # Receipts
+      it { @user.mailbox.should have(1).receipts }
+      it { other_user.mailbox.should have(1).receipts }
+      # Conversations
+      it { @user.mailbox.sentbox.should have(1).conversations }
+      it { other_user.mailbox.inbox.should have(1).conversations }
+
+      it "should be able to reply to a conversation" do
+        last_conversation = other_user.mailbox.inbox.first
+        other_user.reply_to_conversation(last_conversation, "works like a charm!")
+        expect(@user.mailbox.inbox).to include(other_user.mailbox.sentbox.last)
+      end
     end
   end
 

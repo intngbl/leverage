@@ -1,0 +1,4 @@
+%tr
+  %td= link_to conversation.last_sender.name, conversation.last_sender
+  %td= link_to conversation.subject, conversation
+  %td= time_ago_in_words(conversation.updated_at)
