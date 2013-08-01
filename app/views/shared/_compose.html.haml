@@ -1,0 +1,14 @@
+= simple_form_for :message, url: messages_path do |f|
+  = f.error_notification
+  .form-inputs
+    - if @conversation.present?
+      = f.input :_recipients, as: :fake, label: 'Reply to', input_html: { value: @reply_to }, required: true, disabled: true
+      = hidden_field_tag :conversation, @conversation.id
+    - else
+      = f.input :_recipients, as: :fake, hint: 'Add multiple recipients using commas', label: 'To', required: true
+      = f.input :subject, required: true
+    = f.input :body, required: true
+  .form-actions
+    = f.submit t('messages.new.submit'), class: 'btn btn-primary'
+    = submit_tag 'Cancel', type: :reset, class: 'btn btn-danger'
+

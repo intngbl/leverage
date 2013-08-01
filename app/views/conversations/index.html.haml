@@ -1,0 +1,16 @@
+- title = "Conversations"
+- set_title(title)
+
+%h3= title
+
+%p= link_to "New message", new_message_path
+
+%h4 Inbox
+= render partial: "conversations", object: mailbox.inbox
+
+%h4 Sent messages
+= render partial: "conversations", object: mailbox.sentbox
+
+%h4 Trash
+= render partial: "conversations", object: mailbox.trash
+
