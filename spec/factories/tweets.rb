@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :tweet do
     body "Gotta check this!"
+    tweeted_at Time.now()
   end
 end
