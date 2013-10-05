@@ -6,6 +6,11 @@ Given(/^Thus able to (\w+) a tweet/) do |action|
   Ability.new(u).can?(action.to_sym, Tweet.new).should be_true
 end
 
+Given(/^Campaign "(.+)" has (\d+) tweet/) do |title, count|
+  campaign = Campaign.where(title: title).first
+  count.to_i.times { FactoryGirl.create(:tweet, campaign: campaign) }
+end
+
 ### When
 
 When(/^I go to the list of "(.*?)" tweets$/) do |title|

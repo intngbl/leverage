@@ -18,11 +18,16 @@ en:
   tweets:
     create:
       success: 'Tweet created'
+    edit:
+      header: 'Edit tweet'
+      action: 'Update'
     index:
       link: 'See campaign tweets'
     new:
       create: 'Schedule tweet'
       header: 'New tweet'
+    update:
+      success: 'Tweet updated'
   cancan:
     failure:
       unauthorized: 'Not authorized to access this resource.'

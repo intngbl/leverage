@@ -16,7 +16,23 @@ describe TweetsController do
       get :index, { user_id: @user, campaign_id: @campaign }
       response.should be_success
     end
-  end
 
+    describe "When agency attempts to edit another's campaign tweet" do
+      before do
+        other_agency = FactoryGirl.create(:agency)
+        other_campaign = FactoryGirl.create(:campaign, user: other_agency)
+        @other_tweet = other_campaign.tweets.create(body: "Original tweet", tweeted_at: Time.now())
+
+        @tweet_new_attributes = { body: 'Hacked by a n00b' }
+        put :update, { campaign_id: other_campaign.id, id: @other_tweet.id, tweet: @tweet_new_attributes }
+      end
+
+      it { response.should_not be_success }
+      it "should not have changed the tweet's body" do
+        @other_tweet.body.should_not == @tweet_new_attributes[:body]
+      end
+    end
+
+  end
 end
 
