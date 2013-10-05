@@ -16,6 +16,8 @@ en:
       success: 'Sent'
       failure: 'Failed to create message'
   tweets:
+    index:
+      link: 'See campaign tweets'
     new:
       create: 'Schedule tweet'
       header: 'New tweet'

@@ -7,3 +7,6 @@
   %p= render 'enrollment_form'
 - if user_signed_in?
   %p= link_to "#{pluralize(@joined_users_count, 'user')} have joined", recruits_campaign_path(@campaign)
+- if current_user.has_role?(:agency)
+  %p= link_to t('tweets.index.link'), campaign_tweets_path(@campaign)
+
