@@ -16,6 +16,8 @@ en:
       success: 'Sent'
       failure: 'Failed to create message'
   tweets:
+    create:
+      success: 'Tweet created'
     index:
       link: 'See campaign tweets'
     new:
