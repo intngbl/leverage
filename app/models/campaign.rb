@@ -1,6 +1,7 @@
 class Campaign < ActiveRecord::Base
   attr_accessible :brief, :price, :title
   belongs_to :user
+  has_many :tweets, dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :joined_users, through: :enrollments, source: :user
 

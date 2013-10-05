@@ -1,0 +1,10 @@
+%h3= t('.header')
+
+= simple_form_for [@campaign, @tweet] do |t|
+  = t.error_notification
+  .form-inputs
+    = t.input :body, :required => true
+    = t.input :tweeted_at, as: :datetime, :required => true, class: "input-small"
+  .form-actions
+    = t.button :submit, t('.create')
+

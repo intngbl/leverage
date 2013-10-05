@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715163322) do
+ActiveRecord::Schema.define(:version => 20130805015208) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "title"
@@ -86,6 +86,18 @@ ActiveRecord::Schema.define(:version => 20130715163322) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "tweets", :force => true do |t|
+    t.string   "body"
+    t.datetime "tweeted_at"
+    t.boolean  "authorized",  :default => false
+    t.integer  "tweeter_id"
+    t.integer  "campaign_id"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "tweets", ["campaign_id"], :name => "index_tweets_on_campaign_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

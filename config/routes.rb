@@ -18,6 +18,7 @@ Leverage::Application.routes.draw do
 
   resources :users do
     resources :campaigns, shallow: true do
+      resources :tweets
       resources :enrollments, only: [:create, :destroy]
       get :joined_users, as: 'recruits', on: :member
     end

@@ -1,0 +1,4 @@
+%h4= "Tweets for '#{@campaign.title}'"
+%p= "There are #{pluralize(@tweets.size, 'tweet')} in here"
+
+%p= link_to t('tweets.new.header'), new_campaign_tweet_path
