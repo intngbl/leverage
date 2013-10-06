@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   before_filter :authenticate_user!
 
-  load_resource :campaign, except: [:show, :edit, :update]
+  load_resource :campaign, except: [:show, :edit, :update, :destroy]
   load_resource
   authorize_resource except: [:show]
 
@@ -24,6 +24,16 @@ class TweetsController < ApplicationController
     else
       render :action => 'edit', :status => 403
     end
+  end
+
+  def destroy
+    campaign = @tweet.campaign
+    if @tweet.destroy
+      flash[:notice] = t('tweets.destroy.success')
+    else
+      flash[:error] = t('tweets.destroy.error')
+    end
+    redirect_to campaign_tweets_path(campaign)
   end
 
 end

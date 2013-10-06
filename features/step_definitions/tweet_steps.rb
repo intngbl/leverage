@@ -26,7 +26,7 @@ end
 
 ### Then
 
-Then(/^"(.*?)" should have (\d+) tweets$/) do |title, count|
+Then(/^"(.*?)" should have (\d+) tweet/) do |title, count|
   campaign = Campaign.where(title: title).first
   campaign.tweets.count.should eq(count.to_i)
 end

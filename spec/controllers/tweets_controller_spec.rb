@@ -17,6 +17,17 @@ describe TweetsController do
       response.should be_success
     end
 
+    describe "When agency attempts to delete another's campaign tweet" do
+      it "should not change the number of tweets" do
+        other_agency = FactoryGirl.create(:agency)
+        other_campaign = FactoryGirl.create(:campaign, user: other_agency)
+        other_tweet = other_campaign.tweets.create(FactoryGirl.attributes_for(:tweet))
+
+        delete :destroy, { id: other_tweet.id }
+        response.should_not be_success
+      end
+    end
+
     describe "When agency attempts to edit another's campaign tweet" do
       before do
         other_agency = FactoryGirl.create(:agency)

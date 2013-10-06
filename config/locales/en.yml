@@ -18,6 +18,9 @@ en:
   tweets:
     create:
       success: 'Tweet created'
+    destroy:
+      success: 'Tweet deleted'
+      error: 'Tweet not deleted'
     edit:
       header: 'Edit tweet'
       action: 'Update'
