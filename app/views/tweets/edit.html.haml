@@ -1,0 +1,12 @@
+%h3= t('.header')
+
+= simple_form_for [@campaign, @tweet], :html => { :method => :put } do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :body, :required => true
+    = f.input :tweeted_at, as: :datetime, :required => true, class: "input-small"
+  .form-actions
+    = f.button :submit, t('.action')
+
+= link_to "Back", :back
+

@@ -41,7 +41,8 @@ module ApplicationHelper
 
   def enrollment_approval_form(enrollment)
     url = enrollment_authorization_path(enrollment)
-    simple_form_for enrollment, :url => url, :html => { :class => "form-inline", :method => :put } do |f|
+    options = { url: url, html: { class: "form-inline", method: :put } }
+    simple_form_for enrollment, options do |f|
       f.input :id, :as => :hidden, :input_html => { :value => enrollment.id }
       f.submit "Accept", class: "btn"
     end

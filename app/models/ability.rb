@@ -10,8 +10,10 @@ class Ability
     elsif user.has_role? :agency
       can :manage, Campaign
       can [:authorize, :destroy, :update], Enrollment
+      can :manage, Tweet
     elsif user.has_role? :tweeter
       can [:create, :destroy], Enrollment
+      cannot :index, Tweet
     end
   end
 
