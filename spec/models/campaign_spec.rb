@@ -12,6 +12,7 @@ describe Campaign do
   it { should respond_to(:user) }
   it { should respond_to(:enrollments) }
   it { should respond_to(:joined_users) }
+  it { should respond_to(:tweets) }
   its(:user) { should == user }
 
   it { should be_valid }

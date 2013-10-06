@@ -15,6 +15,22 @@ en:
     create:
       success: 'Sent'
       failure: 'Failed to create message'
+  tweets:
+    create:
+      success: 'Tweet created'
+    destroy:
+      success: 'Tweet deleted'
+      error: 'Tweet not deleted'
+    edit:
+      header: 'Edit tweet'
+      action: 'Update'
+    index:
+      link: 'See campaign tweets'
+    new:
+      create: 'Schedule tweet'
+      header: 'New tweet'
+    update:
+      success: 'Tweet updated'
   cancan:
     failure:
       unauthorized: 'Not authorized to access this resource.'

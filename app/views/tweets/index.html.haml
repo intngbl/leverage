@@ -1,0 +1,31 @@
+- title = "Tweets for '#{@campaign.title}'"
+- set_title(title)
+
+%h4= title
+%p= "There are #{pluralize(@tweets.size, 'tweet')} in here"
+
+%table.table.table-condensed
+  %thead
+    %tr
+      %th Body
+      %th Tweeted at
+      %th By user
+      %th Authorized
+      %th
+      %th
+      %th
+      %th
+  %tbody
+    - @tweets.each do |t|
+      %tr
+        %td= link_to t.body, t
+        %td= t.tweeted_at.to_date
+        %td @rodowi
+        %td= t.authorized
+        - if t.sponsor == current_user
+          %td= link_to("Invite tweeter", '#', :class => 'btn btn-mini')
+          %td= link_to("Edit", edit_tweet_path(t), :class => 'btn btn-mini')
+          %td= link_to("Delete", tweet_path(t), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini')
+          %td= link_to("Enqueue", '#', :class => 'btn btn-mini')
+
+%p= link_to t('tweets.new.header'), new_campaign_tweet_path
