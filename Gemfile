@@ -24,6 +24,8 @@ gem 'newrelic_rpm'
 gem 'ransack'
 gem 'mailboxer'
 
+gem "sidekiq", "~> 2.14.1"
+
 group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development
   gem "better_errors", ">= 0.3.2", :group => :development
