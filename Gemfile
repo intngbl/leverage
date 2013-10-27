@@ -25,6 +25,8 @@ gem 'ransack'
 gem 'mailboxer'
 
 gem "sidekiq", "~> 2.14.1"
+gem 'sinatra', require: false
+gem 'slim'
 
 group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development

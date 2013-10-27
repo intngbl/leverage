@@ -28,4 +28,6 @@ Leverage::Application.routes.draw do
   resources :messages
   resources :conversations
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
 end
