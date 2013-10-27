@@ -43,6 +43,8 @@ group :test do
   gem "cucumber-rails", ">= 1.3.0", :require => false
   gem "launchy", ">= 2.1.2"
   gem "capybara", ">= 2.0.2"
+  # Fixes cannot load such file -- zip/zip (LoadError)
+  gem "rubyzip", "0.9.9"
   gem "selenium-webdriver", "~> 2.34.0"
 end
 
