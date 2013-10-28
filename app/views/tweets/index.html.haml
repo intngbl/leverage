@@ -26,6 +26,7 @@
           %td= link_to("Invite tweeter", '#', :class => 'btn btn-mini')
           %td= link_to("Edit", edit_tweet_path(t), :class => 'btn btn-mini')
           %td= link_to("Delete", tweet_path(t), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini')
-          %td= link_to("Enqueue", '#', :class => 'btn btn-mini')
+          - if t.on_time?
+            %td= link_to("Schedule", schedule_tweet_path(t), :method => :post, :class => 'btn btn-mini')
 
 %p= link_to t('tweets.new.header'), new_campaign_tweet_path

@@ -31,6 +31,8 @@ en:
       header: 'New tweet'
     update:
       success: 'Tweet updated'
+    schedule:
+      success: 'Tweet scheduled for %{when}'
   cancan:
     failure:
       unauthorized: 'Not authorized to access this resource.'

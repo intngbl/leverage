@@ -1,7 +1,6 @@
 class Tweet < ActiveRecord::Base
   attr_accessible :body, :tweeted_at, :authorized
   belongs_to :campaign
-  after_commit :schedule_tweet, :on => :create
 
   validates :body, presence: true, length: { maximum: 140 }
   validates :campaign_id, presence: true
@@ -11,7 +10,11 @@ class Tweet < ActiveRecord::Base
   end
 
   def schedule_tweet
-    TweetWorker.perform_async(id)
+    TweetWorker.perform_at(tweeted_at, id)
+  end
+
+  def on_time?
+    Time.now < tweeted_at
   end
 end
 
