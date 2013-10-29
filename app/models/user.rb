@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :campaigns, dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :joined_campaigns, through: :enrollments, source: :campaign
+  has_many :tweets
 
   after_create :set_role
 

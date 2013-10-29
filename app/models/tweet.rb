@@ -1,6 +1,7 @@
 class Tweet < ActiveRecord::Base
-  attr_accessible :body, :tweeted_at, :authorized
+  attr_accessible :body, :tweeted_at, :tweeter_id, :authorized
   belongs_to :campaign
+  belongs_to :tweeter, class_name: "User"
 
   validates :body, presence: true, length: { maximum: 140 }
   validates :campaign_id, presence: true

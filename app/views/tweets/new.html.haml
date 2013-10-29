@@ -5,6 +5,7 @@
   .form-inputs
     = t.input :body, :required => true
     = t.input :tweeted_at, as: :datetime, :required => true, class: "input-small"
+    = t.association :tweeter, collection: @campaign.joined_users
   .form-actions
     = t.button :submit, t('.create')
 
