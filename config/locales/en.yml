@@ -27,7 +27,7 @@ en:
     index:
       link: 'See campaign tweets'
     new:
-      create: 'Schedule tweet'
+      create: 'Create tweet'
       header: 'New tweet'
     update:
       success: 'Tweet updated'

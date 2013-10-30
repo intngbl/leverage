@@ -3,7 +3,12 @@ class TweetWorker
 
   def perform(tweet_id)
     tweet = Tweet.find(tweet_id)
-    puts "#{tweet.body}"
+    # WIP: should use, users access tokenry
+    client = Twitter::Client.new(
+      oauth_token: ENV["TWITTER_ACCESS_TOKEN"],
+      oauth_token_secret: ENV["TWITTER_ACCESS_SECRET"]
+    )
+    client.update(tweet.body)
   end
 end
 

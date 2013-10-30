@@ -23,6 +23,7 @@ gem 'simple_form'
 gem 'newrelic_rpm'
 gem 'ransack'
 gem 'mailboxer'
+gem "twitter", "~> 4.8.1"
 
 gem "sidekiq", "~> 2.14.1"
 gem 'sinatra', require: false
