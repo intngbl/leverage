@@ -18,7 +18,9 @@ Leverage::Application.routes.draw do
 
   resources :users do
     resources :campaigns, shallow: true do
-      resources :tweets
+      resources :tweets do
+        post :schedule, on: :member
+      end
       resources :enrollments, only: [:create, :destroy]
       get :joined_users, as: 'recruits', on: :member
     end
@@ -28,4 +30,6 @@ Leverage::Application.routes.draw do
   resources :messages
   resources :conversations
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: '/sidekiq'
 end

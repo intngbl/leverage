@@ -31,3 +31,7 @@ Then(/^"(.*?)" should have (\d+) tweet/) do |title, count|
   campaign.tweets.count.should eq(count.to_i)
 end
 
+Then(/^Tweet "(.*?)" should be assigned to "(.*?)"$/) do |tweet_body, user_name|
+  Tweet.where(body: tweet_body).first.tweeter.should eq(User.where(name: user_name).first)
+end
+

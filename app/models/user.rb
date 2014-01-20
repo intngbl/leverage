@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :campaigns, dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :joined_campaigns, through: :enrollments, source: :campaign
+  has_many :tweets
 
   after_create :set_role
 
@@ -39,6 +40,8 @@ class User < ActiveRecord::Base
       user.provider = auth['provider']
       user.uid = auth['uid']
       user.name = auth['info']['nickname']
+      user.oauth_token = auth["credentials"]["token"]
+      user.oauth_secret = auth["credentials"]["secret"]
       user.skip_confirmation!
     end
   end
@@ -64,6 +67,13 @@ class User < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def twitter
+    @twitter ||= Twitter::Client.new(
+      oauth_token: oauth_token,
+      oauth_token_secret: oauth_secret
+    )
   end
 
   private

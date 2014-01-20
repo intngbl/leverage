@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   before_filter :authenticate_user!
 
-  load_resource :campaign, except: [:show, :edit, :update, :destroy]
+  load_resource :campaign, except: [:show, :edit, :update, :destroy, :schedule]
   load_resource
   authorize_resource except: [:show]
 
@@ -34,6 +34,11 @@ class TweetsController < ApplicationController
       flash[:error] = t('tweets.destroy.error')
     end
     redirect_to campaign_tweets_path(campaign)
+  end
+
+  def schedule
+    @tweet.schedule_tweet
+    redirect_to @tweet, :notice => t('tweets.schedule.success', when: @tweet.tweeted_at)
   end
 
 end

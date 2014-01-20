@@ -23,6 +23,11 @@ gem 'simple_form'
 gem 'newrelic_rpm'
 gem 'ransack'
 gem 'mailboxer'
+gem "twitter", "~> 4.8.1"
+
+gem "sidekiq", "~> 2.14.1"
+gem 'sinatra', require: false
+gem 'slim'
 
 group :development do
   gem "quiet_assets", ">= 1.0.1", :group => :development
@@ -43,6 +48,8 @@ group :test do
   gem "cucumber-rails", ">= 1.3.0", :require => false
   gem "launchy", ">= 2.1.2"
   gem "capybara", ">= 2.0.2"
+  # Fixes cannot load such file -- zip/zip (LoadError)
+  gem "rubyzip", "0.9.9"
   gem "selenium-webdriver", "~> 2.34.0"
 end
 
